@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.sosopd.order.mapper.SosopdOrderPlatformMapper" >
+  <resultMap id="BaseResultMap" type="cn.sosopd.order.entity.SosopdOrderPlatform" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+    <result column="platform_order_id" property="platformOrderId" jdbcType="VARCHAR" />
+    <result column="platform_order_number" property="platformOrderNumber" jdbcType="VARCHAR" />
+    <result column="platform_order_status" property="platformOrderStatus" jdbcType="VARCHAR" />
+    <result column="service_man_name" property="serviceManName" jdbcType="VARCHAR" />
+    <result column="service_man_phone" property="serviceManPhone" jdbcType="VARCHAR" />
+    <result column="platform_assign_datetime" property="platformAssignDatetime" jdbcType="TIMESTAMP" />
+    <result column="platform_accept_datetime" property="platformAcceptDatetime" jdbcType="TIMESTAMP" />
+    <result column="platform_appointmen_datetime" property="platformAppointmenDatetime" jdbcType="TIMESTAMP" />
+    <result column="platform_finish_datetime" property="platformFinishDatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, platform_id, platform_order_id, platform_order_number, platform_order_status, 
+    service_man_name, service_man_phone, platform_assign_datetime, platform_accept_datetime, 
+    platform_appointmen_datetime, platform_finish_datetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sosopd_order_platform
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sosopd_order_platform
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.sosopd.order.entity.SosopdOrderPlatform" >
+    insert into sosopd_order_platform (order_id, platform_id, platform_order_id, 
+      platform_order_number, platform_order_status, 
+      service_man_name, service_man_phone, platform_assign_datetime, 
+      platform_accept_datetime, platform_appointmen_datetime, 
+      platform_finish_datetime)
+    values (#{orderId,jdbcType=INTEGER}, #{platformId,jdbcType=INTEGER}, #{platformOrderId,jdbcType=VARCHAR}, 
+      #{platformOrderNumber,jdbcType=VARCHAR}, #{platformOrderStatus,jdbcType=VARCHAR}, 
+      #{serviceManName,jdbcType=VARCHAR}, #{serviceManPhone,jdbcType=VARCHAR}, #{platformAssignDatetime,jdbcType=TIMESTAMP}, 
+      #{platformAcceptDatetime,jdbcType=TIMESTAMP}, #{platformAppointmenDatetime,jdbcType=TIMESTAMP}, 
+      #{platformFinishDatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.sosopd.order.entity.SosopdOrderPlatform" >
+    insert into sosopd_order_platform
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="platformId != null" >
+        platform_id,
+      </if>
+      <if test="platformOrderId != null" >
+        platform_order_id,
+      </if>
+      <if test="platformOrderNumber != null" >
+        platform_order_number,
+      </if>
+      <if test="platformOrderStatus != null" >
+        platform_order_status,
+      </if>
+      <if test="serviceManName != null" >
+        service_man_name,
+      </if>
+      <if test="serviceManPhone != null" >
+        service_man_phone,
+      </if>
+      <if test="platformAssignDatetime != null" >
+        platform_assign_datetime,
+      </if>
+      <if test="platformAcceptDatetime != null" >
+        platform_accept_datetime,
+      </if>
+      <if test="platformAppointmenDatetime != null" >
+        platform_appointmen_datetime,
+      </if>
+      <if test="platformFinishDatetime != null" >
+        platform_finish_datetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="platformId != null" >
+        #{platformId,jdbcType=INTEGER},
+      </if>
+      <if test="platformOrderId != null" >
+        #{platformOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="platformOrderNumber != null" >
+        #{platformOrderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="platformOrderStatus != null" >
+        #{platformOrderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceManName != null" >
+        #{serviceManName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceManPhone != null" >
+        #{serviceManPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="platformAssignDatetime != null" >
+        #{platformAssignDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="platformAcceptDatetime != null" >
+        #{platformAcceptDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="platformAppointmenDatetime != null" >
+        #{platformAppointmenDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="platformFinishDatetime != null" >
+        #{platformFinishDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.sosopd.order.entity.SosopdOrderPlatform" >
+    update sosopd_order_platform
+    <set >
+      <if test="platformId != null" >
+        platform_id = #{platformId,jdbcType=INTEGER},
+      </if>
+      <if test="platformOrderId != null" >
+        platform_order_id = #{platformOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="platformOrderNumber != null" >
+        platform_order_number = #{platformOrderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="platformOrderStatus != null" >
+        platform_order_status = #{platformOrderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceManName != null" >
+        service_man_name = #{serviceManName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceManPhone != null" >
+        service_man_phone = #{serviceManPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="platformAssignDatetime != null" >
+        platform_assign_datetime = #{platformAssignDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="platformAcceptDatetime != null" >
+        platform_accept_datetime = #{platformAcceptDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="platformAppointmenDatetime != null" >
+        platform_appointmen_datetime = #{platformAppointmenDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="platformFinishDatetime != null" >
+        platform_finish_datetime = #{platformFinishDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.sosopd.order.entity.SosopdOrderPlatform" >
+    update sosopd_order_platform
+    set platform_id = #{platformId,jdbcType=INTEGER},
+      platform_order_id = #{platformOrderId,jdbcType=VARCHAR},
+      platform_order_number = #{platformOrderNumber,jdbcType=VARCHAR},
+      platform_order_status = #{platformOrderStatus,jdbcType=VARCHAR},
+      service_man_name = #{serviceManName,jdbcType=VARCHAR},
+      service_man_phone = #{serviceManPhone,jdbcType=VARCHAR},
+      platform_assign_datetime = #{platformAssignDatetime,jdbcType=TIMESTAMP},
+      platform_accept_datetime = #{platformAcceptDatetime,jdbcType=TIMESTAMP},
+      platform_appointmen_datetime = #{platformAppointmenDatetime,jdbcType=TIMESTAMP},
+      platform_finish_datetime = #{platformFinishDatetime,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

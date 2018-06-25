@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.sosopd.platform.mapper.SosopdThirdPlatformAccountMapper">
+	<resultMap id="BaseResultMap"
+		type="cn.sosopd.platform.entity.SosopdThirdPlatformAccount">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="platform_id" property="platformId" jdbcType="INTEGER" />
+		<result column="account" property="account" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="create_datetime" property="createDatetime" jdbcType="TIMESTAMP" />
+		<result column="update_datetime" property="updateDatetime" jdbcType="TIMESTAMP" />
+		<result column="delete_datetime" property="deleteDatetime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<resultMap id="JoinResultMap" type="cn.sosopd.platform.entity.SosopdThirdPlatformAccountExtend" extends="BaseResultMap">
+		<result column="status_name" property="statusName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		t.id					id,
+		t.user_id				user_id,
+		t.platform_id			platform_id,
+		t.account				account,
+		t.`password`			`password`,
+		t.`status`				`status`,
+		t.create_datetime		create_datetime,
+		t.update_datetime		update_datetime,
+		t.delete_datetime		delete_datetime
+	</sql>
+	
+	<sql id="Join_Column_List">
+		<include refid="Base_Column_List" />,
+		<!-- 数据字典部分部分 -->
+		sd.`value`				status_name
+	</sql>
+
+	<!-- 只查询工单表 -->
+	<sql id="Basic_join_From_List">
+		sosopd_third_platform_account t
+		left join sosopd_system_dictionary sd on sd.key = t.status
+	</sql>
+
+	<select id="selectUserThirdPlarformAccount" resultMap="JoinResultMap" parameterType="java.lang.Integer">
+		select
+			<include refid="Join_Column_List" />
+		from 
+			<include refid="Basic_join_From_List" />
+		where t.user_id = #{userId,jdbcType=INTEGER}
+	</select>
+
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sosopd_third_platform_account
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sosopd_third_platform_account
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="cn.sosopd.platform.entity.SosopdThirdPlatformAccount">
+		insert into sosopd_third_platform_account (id, user_id, platform_id,
+		account, password, status,
+		create_datetime, update_datetime, delete_datetime
+		)
+		values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
+		#{platformId,jdbcType=INTEGER},
+		#{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+		#{createDatetime,jdbcType=TIMESTAMP},
+		#{updateDatetime,jdbcType=TIMESTAMP},
+		#{deleteDatetime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="cn.sosopd.platform.entity.SosopdThirdPlatformAccount">
+		insert into sosopd_third_platform_account
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="platformId != null">
+				platform_id,
+			</if>
+			<if test="account != null">
+				account,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createDatetime != null">
+				create_datetime,
+			</if>
+			<if test="updateDatetime != null">
+				update_datetime,
+			</if>
+			<if test="deleteDatetime != null">
+				delete_datetime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="platformId != null">
+				#{platformId,jdbcType=INTEGER},
+			</if>
+			<if test="account != null">
+				#{account,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="createDatetime != null">
+				#{createDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateDatetime != null">
+				#{updateDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleteDatetime != null">
+				#{deleteDatetime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="cn.sosopd.platform.entity.SosopdThirdPlatformAccount">
+		update sosopd_third_platform_account
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="platformId != null">
+				platform_id = #{platformId,jdbcType=INTEGER},
+			</if>
+			<if test="account != null">
+				account = #{account,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="createDatetime != null">
+				create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateDatetime != null">
+				update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleteDatetime != null">
+				delete_datetime = #{deleteDatetime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="cn.sosopd.platform.entity.SosopdThirdPlatformAccount">
+		update sosopd_third_platform_account
+		set user_id = #{userId,jdbcType=INTEGER},
+		platform_id = #{platformId,jdbcType=INTEGER},
+		account = #{account,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		status = #{status,jdbcType=VARCHAR},
+		create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+		update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+		delete_datetime = #{deleteDatetime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

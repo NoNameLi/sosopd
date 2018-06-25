@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.sosopd.order.mapper.SosopdOrderMapper" >
+  <resultMap id="BaseResultMap" type="cn.sosopd.order.entity.SosopdOrder" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="platform_account_id" property="platformAccountId" jdbcType="INTEGER" />
+    <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
+    <result column="cust_name" property="custName" jdbcType="VARCHAR" />
+    <result column="cust_phone" property="custPhone" jdbcType="VARCHAR" />
+    <result column="cust_province" property="custProvince" jdbcType="INTEGER" />
+    <result column="cust_city" property="custCity" jdbcType="INTEGER" />
+    <result column="cust_county" property="custCounty" jdbcType="INTEGER" />
+    <result column="cust_address" property="custAddress" jdbcType="VARCHAR" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="product" property="product" jdbcType="VARCHAR" />
+    <result column="product_model" property="productModel" jdbcType="VARCHAR" />
+    <result column="guarantee" property="guarantee" jdbcType="VARCHAR" />
+    <result column="product_count" property="productCount" jdbcType="INTEGER" />
+    <result column="service_type" property="serviceType" jdbcType="VARCHAR" />
+    <result column="order_source" property="orderSource" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_datetime" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="update_datetime" property="updateDatetime" jdbcType="TIMESTAMP" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="JoinResultMap" type="cn.sosopd.order.entity.SosopdOrderExtend" extends = "BaseResultMap">
+    <result column="platfrom_name" property="platfromName" jdbcType="VARCHAR" />
+    <result column="order_status_name" property="orderStatusName" jdbcType="VARCHAR" />
+    <result column="cust_province_name" property="custProvinceName" jdbcType="VARCHAR" />
+    <result column="cust_city_name" property="custCityName" jdbcType="VARCHAR" />
+    <result column="cust_county_name" property="custCountyName" jdbcType="VARCHAR" />
+    <result column="guarantee_name" property="guaranteeName" jdbcType="VARCHAR" />
+  	<result column="service_type_name" property="serviceTypeName" jdbcType="VARCHAR" />
+  	<result column="order_source_name" property="orderSourceName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    t.order_id      		order_id,
+    t.user_id   			user_id, 
+    t.platform_account_id	platform_account_id, 
+    t.order_status			order_status, 
+    t.cust_name				cust_name, 
+    t.cust_phone			cust_phone, 
+    t.cust_province 		cust_province, 
+    t.cust_city 			cust_city, 
+    t.cust_county			cust_county, 
+    t.cust_address 			cust_address, 
+    t.brand					brand, 
+	t.product				product, 
+	t.product_model			product_model, 
+	t.guarantee				guarantee, 
+	t.product_count			product_count, 
+	t.service_type			service_type, 
+	t.order_source			order_source, 
+	t.remark			   	remark, 
+	t.create_datetime		create_datetime, 
+	t.update_datetime		update_datetime,
+	t.delete_flag			delete_flag
+  </sql>
+  
+  <sql id="Join_Column_List" >
+  	<include refid="Base_Column_List" /> ,
+  	<!-- 平台部分-->
+	tp.platfrom_name	   				platfrom_name,
+	<!-- 地址部分-->
+	concat(pro.name, pro.suffix)		cust_province_name,
+	concat(city.name, city.suffix)		cust_city_name,
+	concat(county.name, county.suffix)	cust_county_name,
+	<!-- 数据字典部分部分-->
+	os.value	   	 		order_status_name,
+	gu.value	    		guarantee_name,
+	st.value	  			service_type_name,
+	oso.value	  			order_source_name
+  </sql>
+  
+  <!-- 只查询工单表 -->
+  <sql id="Basic_From_List" >
+		sosopd_order t
+  </sql>
+	
+	<!-- 查询工单表的外键关联表 -->
+	<sql id="Join_From_List" >
+		<include refid="Basic_From_List" />
+		<!-- 平台部分-->
+		left join sosopd_third_platform_account tpa 	on tpa.id = t.platform_account_id 
+		left join sosopd_third_platform tp			 	on tp.platform_id = tpa.platform_id
+		
+		<!-- 地址部分-->
+		left join sosopd_area pro   					on pro.id = t.cust_province
+		left join sosopd_area city   					on city.id = t.cust_city
+		left join sosopd_area county 					on county.id = t.cust_county
+		
+		<!-- 数据字典部分部分-->
+		left join sosopd_system_dictionary os  			on os.key = t.order_status 
+		left join sosopd_system_dictionary gu  			on gu.key = t.guarantee 
+		left join sosopd_system_dictionary st  			on st.key = t.service_type 
+		left join sosopd_system_dictionary oso  		on oso.key = t.order_source 
+	</sql>
+	
+	<!-- 高级搜索：查询参数条件 -->
+	<sql id="selectByAdvancedSearch_Where_QueryExample">
+		<if test="params.OrderState != null and params.OrderState != ''" >
+			and t.order_status = #{params.OrderState}
+		</if>
+		
+		<if test="params.createDatetimeStart != null and params.createDatetimeStart != '' and params.createDatetimeEnd != null and params.createDatetimeEnd != ''" >
+			and t.create_datetime between #{params.createDatetimeStart} and #{params.createDatetimeEnd}
+		</if>
+		
+		<if test="params.provinceId != null and params.provinceId != ''" >
+			and t.cust_province = #{params.provinceId}
+		</if>
+		<if test="params.cityId != null and params.cityId != ''" >
+			and t.cust_city = #{params.cityId}
+		</if>
+		<if test="params.districyId != null and params.districyId != ''" >
+			and t.cust_county = #{params.districyId}
+		</if>
+		<if test="params.platform != null and params.platform != ''" >
+			and tp.platform_id = #{params.platform}
+		</if>
+		<if test="params.orderServiceType != null and params.orderServiceType != ''" >
+			and t.service_type = #{params.orderServiceType}
+		</if>
+		
+		<if test="params.key != null and params.key != ''" >
+			and t.cust_name like '%${params.key}%'
+			and t.cust_phone like '%${params.key}%'
+			and t.brand like '%${params.key}%'
+			and t.product like '%${params.key}%'
+		</if>
+	</sql>
+  
+  <select id="queryOrderByParams" resultMap="JoinResultMap">
+    select 
+    <include refid="Join_Column_List" />
+    from 
+    <include refid="Join_From_List" />
+    where 1 = 1
+    <if test ="userId != null ">
+    	and t.user_id =#{userId}
+    </if>
+    <!-- 示例查询条件 -->
+	<if test="params != null" >
+		<include refid="selectByAdvancedSearch_Where_QueryExample" />
+	</if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from 
+	<include refid="Basic_From_List" />
+    where t.order_id = #{orderId,jdbcType=INTEGER}
+    <if test="userId != null">
+    	and t.user_id = #{userId,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sosopd_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.sosopd.order.entity.SosopdOrder" >
+    insert into sosopd_order (order_id, user_id, platform_account_id, 
+      order_status, cust_name, cust_phone, 
+      cust_province, cust_city, cust_county, 
+      cust_address, brand, product, 
+      product_model, guarantee, product_count, 
+      service_type, order_source, remark, 
+      create_datetime, update_datetime, delete_flag)
+    values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{platformAccountId,jdbcType=INTEGER}, 
+      #{orderStatus,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, #{custPhone,jdbcType=VARCHAR}, 
+      #{custProvince,jdbcType=INTEGER}, #{custCity,jdbcType=INTEGER}, #{custCounty,jdbcType=INTEGER}, 
+      #{custAddress,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, #{product,jdbcType=VARCHAR}, 
+      #{productModel,jdbcType=VARCHAR}, #{guarantee,jdbcType=VARCHAR}, #{productCount,jdbcType=VARCHAR}, 
+      #{serviceType,jdbcType=VARCHAR}, #{orderSource,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createDatetime,jdbcType=TIMESTAMP}, #{updateDatetime,jdbcType=TIMESTAMP}, 
+      #{deleteFlag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.sosopd.order.entity.SosopdOrder" >
+    insert into sosopd_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="platformAccountId != null" >
+        platform_account_id,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="custName != null" >
+        cust_name,
+      </if>
+      <if test="custPhone != null" >
+        cust_phone,
+      </if>
+      <if test="custProvince != null" >
+        cust_province,
+      </if>
+      <if test="custCity != null" >
+        cust_city,
+      </if>
+      <if test="custCounty != null" >
+        cust_county,
+      </if>
+      <if test="custAddress != null" >
+        cust_address,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="product != null" >
+        product,
+      </if>
+      <if test="productModel != null" >
+        product_model,
+      </if>
+      <if test="guarantee != null" >
+        guarantee,
+      </if>
+      <if test="productCount != null" >
+        product_count,
+      </if>
+      <if test="serviceType != null" >
+        service_type,
+      </if>
+      <if test="orderSource != null" >
+        order_source,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime,
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="platformAccountId != null" >
+        #{platformAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custPhone != null" >
+        #{custPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="custProvince != null" >
+        #{custProvince,jdbcType=INTEGER},
+      </if>
+      <if test="custCity != null" >
+        #{custCity,jdbcType=INTEGER},
+      </if>
+      <if test="custCounty != null" >
+        #{custCounty,jdbcType=INTEGER},
+      </if>
+      <if test="custAddress != null" >
+        #{custAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null" >
+        #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="productModel != null" >
+        #{productModel,jdbcType=VARCHAR},
+      </if>
+      <if test="guarantee != null" >
+        #{guarantee,jdbcType=VARCHAR},
+      </if>
+      <if test="productCount != null" >
+        #{productCount,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null" >
+        #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSource != null" >
+        #{orderSource,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id ="updateByParams">
+  	update sosopd_order
+    <set >
+      <if test="order.userId != null" >
+        user_id = #{order.userId,jdbcType=INTEGER},
+      </if>
+      <if test="order.platformAccountId != null" >
+        platform_account_id = #{order.platformAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="order.orderStatus != null" >
+        order_status = #{order.orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="order.custName != null" >
+        cust_name = #{order.custName,jdbcType=VARCHAR},
+      </if>
+      <if test="order.custPhone != null" >
+        cust_phone = #{order.custPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="order.custProvince != null" >
+        cust_province = #{order.custProvince,jdbcType=INTEGER},
+      </if>
+      <if test="order.custCity != null" >
+        cust_city = #{order.custCity,jdbcType=INTEGER},
+      </if>
+      <if test="order.custCounty != null" >
+        cust_county = #{order.custCounty,jdbcType=INTEGER},
+      </if>
+      <if test="order.custAddress != null" >
+        cust_address = #{order.custAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="order.brand != null" >
+        brand = #{order.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="order.product != null" >
+        product = #{order.product,jdbcType=VARCHAR},
+      </if>
+      <if test="order.productModel != null" >
+        product_model = #{order.productModel,jdbcType=VARCHAR},
+      </if>
+      <if test="order.guarantee != null" >
+        guarantee = #{order.guarantee,jdbcType=VARCHAR},
+      </if>
+      <if test="order.productCount != null" >
+        product_count = #{order.productCount,jdbcType=VARCHAR},
+      </if>
+      <if test="order.serviceType != null" >
+        service_type = #{order.serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="order.orderSource != null" >
+        order_source = #{order.orderSource,jdbcType=VARCHAR},
+      </if>
+      <if test="order.remark != null" >
+        remark = #{order.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="order.createDatetime != null" >
+        create_datetime = #{order.createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="order.updateDatetime != null" >
+        update_datetime = #{order.updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="order.deleteFlag != null" >
+        delete_flag = #{order.deleteFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{condition.orderId,jdbcType=INTEGER}
+    AND user_id = #{condition.userId,jdbcType=INTEGER}
+  	
+  </update>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="cn.sosopd.order.entity.SosopdOrder" >
+    update sosopd_order
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="platformAccountId != null" >
+        platform_account_id = #{platformAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        cust_name = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custPhone != null" >
+        cust_phone = #{custPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="custProvince != null" >
+        cust_province = #{custProvince,jdbcType=INTEGER},
+      </if>
+      <if test="custCity != null" >
+        cust_city = #{custCity,jdbcType=INTEGER},
+      </if>
+      <if test="custCounty != null" >
+        cust_county = #{custCounty,jdbcType=INTEGER},
+      </if>
+      <if test="custAddress != null" >
+        cust_address = #{custAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null" >
+        product = #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="productModel != null" >
+        product_model = #{productModel,jdbcType=VARCHAR},
+      </if>
+      <if test="guarantee != null" >
+        guarantee = #{guarantee,jdbcType=VARCHAR},
+      </if>
+      <if test="productCount != null" >
+        product_count = #{productCount,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null" >
+        service_type = #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSource != null" >
+        order_source = #{orderSource,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.sosopd.order.entity.SosopdOrder" >
+    update sosopd_order
+    set user_id = #{userId,jdbcType=INTEGER},
+      platform_account_id = #{platformAccountId,jdbcType=INTEGER},
+      order_status = #{orderStatus,jdbcType=VARCHAR},
+      cust_name = #{custName,jdbcType=VARCHAR},
+      cust_phone = #{custPhone,jdbcType=VARCHAR},
+      cust_province = #{custProvince,jdbcType=INTEGER},
+      cust_city = #{custCity,jdbcType=INTEGER},
+      cust_county = #{custCounty,jdbcType=INTEGER},
+      cust_address = #{custAddress,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      product = #{product,jdbcType=VARCHAR},
+      product_model = #{productModel,jdbcType=VARCHAR},
+      guarantee = #{guarantee,jdbcType=VARCHAR},
+      product_count = #{productCount,jdbcType=VARCHAR},
+      service_type = #{serviceType,jdbcType=VARCHAR},
+      order_source = #{orderSource,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+      update_datetime = #{updateDatetime,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

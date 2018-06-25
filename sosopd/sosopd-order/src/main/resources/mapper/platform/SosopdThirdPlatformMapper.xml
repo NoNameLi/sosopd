@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.sosopd.platform.mapper.SosopdThirdPlatformMapper">
+	<resultMap id="BaseResultMap" type="cn.sosopd.platform.entity.SosopdThirdPlatform">
+		<id column="platform_id" property="platformId" jdbcType="INTEGER" />
+		<result column="platfrom_name" property="platfromName" jdbcType="VARCHAR" />
+		<result column="platform_type" property="platformType" jdbcType="VARCHAR" />
+		<result column="docking_status" property="dockingStatus" jdbcType="VARCHAR" />
+		<result column="login_web_site" property="loginWebSite" jdbcType="VARCHAR" />
+		<result column="preset_status" property="presetStatus" jdbcType="VARCHAR" />
+		<result column="preset_sort" property="presetSort" jdbcType="INTEGER" />
+		<result column="official_web_site" property="officialWebSite" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="JoinResultMap" type="cn.sosopd.platform.entity.SosopdThirdPlatformExtend" extends="BaseResultMap">
+		<result column="platfrom_type_name" property="platfromTypeName" jdbcType="VARCHAR" />
+		<result column="docking_status_name" property="dockingStatusName" jdbcType="VARCHAR" />
+		<result column="preset_status_name" property="presetStatusName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		t.platform_id 			platform_id,
+		t.platfrom_name			platfrom_name,
+		t.platform_type			platform_type,
+		t.docking_status		docking_status,
+		t.login_web_site		login_web_site,
+		t.preset_status			preset_status,
+		t.preset_sort			preset_sort,
+		t.official_web_site		official_web_site
+	</sql>
+
+	<sql id="Join_Column_List">
+		<include refid="Base_Column_List" />
+		,
+		<!-- 数据字典部分部分 -->
+		pt.`value`				platform_type_name,
+		ds.`value`				docking_status_name,
+		ps.`value`				preset_status_name
+	</sql>
+
+	<!-- 只查询工单表 -->
+	<sql id="Basic_From_List">
+		sosopd_third_platform t
+	</sql>
+
+	<!-- 查询工单表的外键关联表 -->
+	<sql id="Join_From_List">
+		<include refid="Basic_From_List" />
+		<!-- 数据字典部分部分 -->
+		left join sosopd_system_dictionary pt on pt.key = t.platform_type
+		left join sosopd_system_dictionary ds on ds.key = t.docking_status
+		left join sosopd_system_dictionary ps on ps.key = t.preset_status
+	</sql>
+
+	<!-- 高级搜索：查询参数条件 -->
+	<sql id="selectByAdvancedSearch_Where_QueryExample">
+		<if test="params.platformType != null and params.platformType != ''" >
+			and t.platform_type = #{params.platformType}
+		</if>
+		
+		<if test="params.dockingStatus != null and params.dockingStatus != ''" >
+			and t.docking_status = #{params.dockingStatus}
+		</if>
+		<if test="params.presetStatus != null and params.presetStatus != ''" >
+			and t.preset_status = #{params.presetStatus}
+		</if>
+	</sql>
+	
+	<select id="selectByParams" resultMap="JoinResultMap" parameterType="java.lang.Integer">
+	    select 
+	    	<include refid="Join_Column_List" />
+	    from 
+	  	  <include refid="Join_From_List" />
+	    where 1 = 1
+		    <!-- 示例查询条件 -->
+			<if test="params != null" >
+				<include refid="selectByAdvancedSearch_Where_QueryExample" />
+			</if>
+	</select>
+
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sosopd_third_platform
+		where platform_id = #{platformId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sosopd_third_platform
+		where platform_id = #{platformId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="cn.sosopd.platform.entity.SosopdThirdPlatform">
+		insert into sosopd_third_platform (platform_id, platfrom_name,
+		platform_type,
+		docking_status, login_web_site, preset_status,
+		preset_sort, official_web_site)
+		values (#{platformId,jdbcType=INTEGER}, #{platfromName,jdbcType=VARCHAR},
+		#{platformType,jdbcType=VARCHAR},
+		#{dockingStatus,jdbcType=VARCHAR}, #{loginWebSite,jdbcType=VARCHAR}, #{presetStatus,jdbcType=VARCHAR},
+		#{presetSort,jdbcType=INTEGER}, #{officialWebSite,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="cn.sosopd.platform.entity.SosopdThirdPlatform">
+		insert into sosopd_third_platform
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="platformId != null">
+				platform_id,
+			</if>
+			<if test="platfromName != null">
+				platfrom_name,
+			</if>
+			<if test="platformType != null">
+				platform_type,
+			</if>
+			<if test="dockingStatus != null">
+				docking_status,
+			</if>
+			<if test="loginWebSite != null">
+				login_web_site,
+			</if>
+			<if test="presetStatus != null">
+				preset_status,
+			</if>
+			<if test="presetSort != null">
+				preset_sort,
+			</if>
+			<if test="officialWebSite != null">
+				official_web_site,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="platformId != null">
+				#{platformId,jdbcType=INTEGER},
+			</if>
+			<if test="platfromName != null">
+				#{platfromName,jdbcType=VARCHAR},
+			</if>
+			<if test="platformType != null">
+				#{platformType,jdbcType=VARCHAR},
+			</if>
+			<if test="dockingStatus != null">
+				#{dockingStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="loginWebSite != null">
+				#{loginWebSite,jdbcType=VARCHAR},
+			</if>
+			<if test="presetStatus != null">
+				#{presetStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="presetSort != null">
+				#{presetSort,jdbcType=INTEGER},
+			</if>
+			<if test="officialWebSite != null">
+				#{officialWebSite,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.sosopd.platform.entity.SosopdThirdPlatform">
+		update sosopd_third_platform
+		<set>
+			<if test="platfromName != null">
+				platfrom_name = #{platfromName,jdbcType=VARCHAR},
+			</if>
+			<if test="platformType != null">
+				platform_type = #{platformType,jdbcType=VARCHAR},
+			</if>
+			<if test="dockingStatus != null">
+				docking_status = #{dockingStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="loginWebSite != null">
+				login_web_site = #{loginWebSite,jdbcType=VARCHAR},
+			</if>
+			<if test="presetStatus != null">
+				preset_status = #{presetStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="presetSort != null">
+				preset_sort = #{presetSort,jdbcType=INTEGER},
+			</if>
+			<if test="officialWebSite != null">
+				official_web_site = #{officialWebSite,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where platform_id = #{platformId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="cn.sosopd.platform.entity.SosopdThirdPlatform">
+		update sosopd_third_platform
+		set platfrom_name = #{platfromName,jdbcType=VARCHAR},
+		platform_type = #{platformType,jdbcType=VARCHAR},
+		docking_status = #{dockingStatus,jdbcType=VARCHAR},
+		login_web_site = #{loginWebSite,jdbcType=VARCHAR},
+		preset_status = #{presetStatus,jdbcType=VARCHAR},
+		preset_sort = #{presetSort,jdbcType=INTEGER},
+		official_web_site = #{officialWebSite,jdbcType=VARCHAR}
+		where platform_id = #{platformId,jdbcType=INTEGER}
+	</update>
+</mapper>
