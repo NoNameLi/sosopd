@@ -22,7 +22,7 @@ var vm = new Vue({
 			{"name":"已派单","value":"sended"}
 		],
 		
-		platformCondition:[{"name":"中国联保","value":"01"},{"name":"日日顺","value":"02"}],
+		platformCondition:[{"text":"中国联保","id":"01"},{"text":"日日顺","id":"02"}],
 		
 		orderTypeCondition:[{"text":"维修","id":1},{"text":"安装","id":2}],
 		
@@ -226,7 +226,6 @@ var vm = new Vue({
 			var vm = this;
 			$.ajax({
 				url : contextPath + '/sosopd/thirdplatform/getPresetPlatform.json',
-				//data : vm.getLoginParams(),
 				type : 'GET',
 				success : function(res) {
 					if(res.meta.success){
@@ -256,12 +255,12 @@ var vm = new Vue({
 					if(res.meta.success){
 						vm.orderTypeCondition=res.data;
 						
-						$('#orderType').select2({
+						$('#order_type').select2({
 							data: vm.orderTypeCondition
 						}).on("change",function(e){
 							vm.orderType = $(this).val();
 						});
-						$('#orderType').val(vm.orderType).trigger('change');
+						$('#order_type').val(vm.orderType).trigger('change');
 					}else{
 						layer.msg(res.meta.message, {icon:5});
 					}
@@ -273,6 +272,7 @@ var vm = new Vue({
 		}
 	},
 	mounted: function(){
+		var vm = this;
 		$('.pointer').daterangepicker({
 			showDropdowns : true,
 			showWeekNumbers : false, // 是否显示第几周
@@ -293,13 +293,15 @@ var vm = new Vue({
 			separator : ' - ',
 			locale : daterangepicker_cn
 		}, function(start, end, label) { // 选择日期后回调
+			vm.createDateTimeRange = start.format('YYYY/MM/DD') +' - ' +  end.format('YYYY-MM-DD');
 		}).change(function() {
 			// 显示/隐藏clear按钮
 		});
+		
 		$('#createDate_search_daterange').val(moment().startOf('day').format('YYYY/MM/DD') + ' - ' + moment().format('YYYY/MM/DD'));
 		
-		this.initPlatformData();
 		this.initOrderType();
+		this.initPlatformData();
 		
 		this.initDataTable();
 		

@@ -69,7 +69,7 @@
 			<div class="col-xs-2 col-sm-2 col-md-2">
 				 <div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<select id="orderType" v-model="orderType" class= "form-control fillet" > 
+						<select id="order_type" v-model="orderType" class= "form-control fillet" > 
 							<option value="">全部类型</option>	
 						</select>
 					</div>
