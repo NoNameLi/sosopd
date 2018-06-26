@@ -14,21 +14,24 @@
 	<!-- 加载JS -- end -->
 	
 	<div id="wrapper" v-cloak class ="padding-top-15px">
-		<div id="title" class="col-xs-12 col-sm-12 col-md-12">
-			<!-- 
-			<div class="col-xs-2 col-sm-2 col-md-2">
-				<div class="row">
-					<input type="radio" v-model="orderStatus" value="">全部</input>
+		<div id="title" class="col-xs-12 col-sm-12 col-md-12 cursor">
+		
+			<div class="col-xs-3 col-sm-3 col-md-3">
+				<div class = "row">
+					<span v-for = "(item,index) in orderStatusCondition" class="col-xs-3 col-sm-3 col-md-3"  v-bind:class="{active: item.active}" v-on:click="changOrderStatus(index)">
+							{{item.name}}
+					</span>
 				</div>
+			
 			</div>
-			 -->
-			<div class="col-xs-2 col-sm-2 col-md-2">
+			
+			<div class="col-xs-1 col-sm-1 col-md-1">
 				<div class="row">
-					<input v-model="searchKey" id="searchKey" type="text" class="form-control keyword-ipt" placeholder="输入关键字查询" style="font-size: 12px;"/>
+					<input v-model="searchKey" id="searchKey" type="text" class="form-control keyword-ipt" placeholder="关键字" style="font-size: 12px;"/>
 					<i class="fa fa-search inlay"></i>
 				</div>
 			</div>
-			<div class="col-xs-3 col-sm-3 col-md-3">
+			<div class="col-xs-2 col-sm-2 col-md-2">
 				<div class="row" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div id="createDate_div" class="input-daterange">
@@ -41,7 +44,7 @@
 				</div>
 			</div>
 			
-			<div class="col-xs-3 col-sm-3 col-md-3">
+			<div class="col-xs-2 col-sm-2 col-md-2">
 				 <div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div>

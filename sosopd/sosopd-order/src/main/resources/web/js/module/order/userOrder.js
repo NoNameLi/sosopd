@@ -16,10 +16,10 @@ var vm = new Vue({
 		orderType:"",
 
 		orderStatusCondition:[
-			{"name":"全部","value":""},
-			{"name":"派单失败","value":"send_fail"},
-			{"name":"未派单","value":"no_send"},
-			{"name":"已派单","value":"sended"}
+			{"name":"全部","value":"","active":true},
+			{"name":"派单失败","value":"send_fail","active":false},
+			{"name":"未派单","value":"no_send","active":false},
+			{"name":"已派单","value":"sended","active":false}
 		],
 		
 		platformCondition:[{"text":"中国联保","id":"01"},{"text":"日日顺","id":"02"}],
@@ -53,7 +53,16 @@ var vm = new Vue({
 		},
 		
 		setHttpParams:function(){
-			return {};
+			return {
+				// 状态
+				// 关键字
+				// 时间范围
+				// 地址
+				// 平台
+				// 维修
+				
+				
+			};
 		},
 		urlRequestRouter:function(){
 			return contextPath + "/sosopd/order/list.json";
@@ -261,6 +270,7 @@ var vm = new Vue({
 							vm.orderType = $(this).val();
 						});
 						$('#order_type').val(vm.orderType).trigger('change');
+						
 					}else{
 						layer.msg(res.meta.message, {icon:5});
 					}
@@ -269,6 +279,14 @@ var vm = new Vue({
 					layer.msg("工单类型初始化失败", {icon:5});
 				}
 			});
+		},
+		
+		changOrderStatus:function(index){
+			var vm = this;
+			for(var i=0;i<vm.orderStatusCondition.length;i++){
+				vm.orderStatusCondition[i].active =false;
+			}
+			vm.orderStatusCondition[index].active = true;
 		}
 	},
 	mounted: function(){
@@ -297,10 +315,11 @@ var vm = new Vue({
 		}).change(function() {
 			// 显示/隐藏clear按钮
 		});
-		
-		$('#createDate_search_daterange').val(moment().startOf('day').format('YYYY/MM/DD') + ' - ' + moment().format('YYYY/MM/DD'));
+		vm.createDateTimeRange = moment().startOf('day').format('YYYY/MM/DD') + ' - ' + moment().format('YYYY/MM/DD');
+		$('#createDate_search_daterange').val(vm.createDateTimeRange);
 		
 		this.initOrderType();
+		
 		this.initPlatformData();
 		
 		this.initDataTable();
