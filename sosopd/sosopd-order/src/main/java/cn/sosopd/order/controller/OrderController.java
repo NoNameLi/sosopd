@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.nutz.json.Json;
+import org.nutz.json.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +33,7 @@ public class OrderController {
 	@RequestMapping("/list.json")
 	@ResponseBody
 	public JQueryDataTableResponseData queryOrderByPage(HttpServletRequest request, QueryOrderParams params) {
+		System.out.println(Json.toJson(params,JsonFormat.nice()));
 		JQueryDataTableParam jqp = JQueryDataTableParam.buildParams(request);
 		PageInfo<?> pageInfo = orderService.queryOrdersByPage(UserTokenLocal.getCurrentUser(), jqp.convter(), params);
 		return JQueryDataTableResponseData.buildResponseDataFromPageInfo(jqp, pageInfo);

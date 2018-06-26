@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>sosopd-order</artifactId>
@@ -84,8 +83,7 @@
 				<configuration>
 					<stopPort>${webserver.stop.port}</stopPort>
 					<connectors>
-						<connector
-							implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
 							<port>${webserver.port}</port>
 						</connector>
 					</connectors>
@@ -303,5 +301,11 @@
 			<artifactId>commons-fileupload</artifactId>
 		</dependency>
 		<!-- ***************web end*************** -->
+
+		<dependency>
+			<groupId>org.nutz</groupId>
+			<artifactId>nutz</artifactId>
+		</dependency>
+
 	</dependencies>
 </project>

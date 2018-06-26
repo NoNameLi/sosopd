@@ -55,15 +55,45 @@ var vm = new Vue({
 		setHttpParams:function(){
 			return {
 				// 状态
+				orderState:this.getActiveOrderStatusValue(),
 				// 关键字
+				key:this.searchKey,
 				// 时间范围
+				createDatetimeStart:"",
+				createDatetimeEnd:"",
 				// 地址
+				provinceId:"",
+				cityId:"",
+				districyId:"",
 				// 平台
+				platform:this.platform,
 				// 维修
-				
+				orderServiceType:this.orderType,
 				
 			};
 		},
+		
+		resetOrderStatus:function(){
+			this.orderStatusCondition[0].active = true;
+			for(var i = 1;i < this.orderStatusCondition.length;i++){
+				this.orderStatusCondition[i].active=false;
+			}
+		},
+		
+		changOrderStatus:function(index){
+			this.resetOrderStatus();
+			vm.orderStatusCondition[0].active=false;
+			vm.orderStatusCondition[index].active = true;
+		},
+		getActiveOrderStatusValue:function(){
+			for(var i = 1;i < this.orderStatusCondition.length;i++){
+				if(this.orderStatusCondition[i].active){
+					return this.orderStatusCondition[i].value;
+				}
+			}
+			return "";
+		},
+		
 		urlRequestRouter:function(){
 			return contextPath + "/sosopd/order/list.json";
 		},
@@ -210,6 +240,12 @@ var vm = new Vue({
 		refresh:function(onlyInitTable){
 			vm.draw(onlyInitTable);
 		},
+		
+		change:function(){
+			console.log("call change");
+		},
+		
+		
 		draw: function(onlyInitTable){
 			if(!onlyInitTable){
 				layer.closeAll();
@@ -244,8 +280,9 @@ var vm = new Vue({
 							data: vm.platformCondition
 						}).on("change",function(e){
 							vm.platform = $(this).val();
+							vm.draw(true);
 						});
-						$('#third_platform').val(vm.platform).trigger('change');
+						//$('#third_platform').val(vm.platform).trigger('change');
 					}else{
 						layer.msg(res.meta.message, {icon:5});
 					}
@@ -268,8 +305,9 @@ var vm = new Vue({
 							data: vm.orderTypeCondition
 						}).on("change",function(e){
 							vm.orderType = $(this).val();
+							vm.draw(true);
 						});
-						$('#order_type').val(vm.orderType).trigger('change');
+						//$('#order_type').val(vm.orderType).trigger('change');
 						
 					}else{
 						layer.msg(res.meta.message, {icon:5});
@@ -279,14 +317,6 @@ var vm = new Vue({
 					layer.msg("工单类型初始化失败", {icon:5});
 				}
 			});
-		},
-		
-		changOrderStatus:function(index){
-			var vm = this;
-			for(var i=0;i<vm.orderStatusCondition.length;i++){
-				vm.orderStatusCondition[i].active =false;
-			}
-			vm.orderStatusCondition[index].active = true;
 		}
 	},
 	mounted: function(){

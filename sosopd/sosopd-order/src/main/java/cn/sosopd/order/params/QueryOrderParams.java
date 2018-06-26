@@ -19,7 +19,7 @@ public class QueryOrderParams implements Serializable {
 
 	private static final long serialVersionUID = 2353724687686775328L;
 	
-	private String OrderState;
+	private String orderState;
 	
 	private String key;
 	
