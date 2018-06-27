@@ -15,8 +15,8 @@ import org.springframework.util.StringUtils;
  */
 public class MyDatePropertyEditor extends PropertyEditorSupport {
 
-	private static final DateFormat DATEFORMAT = new SimpleDateFormat("yyyy-MM-dd");
-	private static final DateFormat TIMEFORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static final DateFormat DATEFORMAT = new SimpleDateFormat("yyyy/MM/dd");
+	private static final DateFormat TIMEFORMAT = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 	private DateFormat dateFormat;
 	private boolean allowEmpty = true;

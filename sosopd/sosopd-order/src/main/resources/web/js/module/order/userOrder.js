@@ -7,13 +7,13 @@ var vm = new Vue({
 	data: {
 		tableInitCount: 0, // 结算单列表初始化记数
 		
-		orderStatus:"",
-		searchKey:"",
-		createDateTimeRange:"",
-		addressId:"",
-		
-		platform:"",
-		orderType:"",
+		orderStatus : "",
+		searchKey : "",
+		createDateTimeStart : moment().startOf('day').format('YYYY/MM/DD'),
+		createDateTimeEnd : moment().format('YYYY/MM/DD'),
+		addressId : "",
+		platform : "",
+		orderType : "",
 
 		orderStatusCondition:[
 			{"name":"全部","value":"","active":true},
@@ -59,8 +59,8 @@ var vm = new Vue({
 				// 关键字
 				key:this.searchKey,
 				// 时间范围
-				createDatetimeStart:"",
-				createDatetimeEnd:"",
+				createDatetimeStart:this.createDateTimeStart + ' 00:00:00',
+				createDatetimeEnd:this.createDateTimeEnd + ' 23:59:59',
 				// 地址
 				provinceId:"",
 				cityId:"",
@@ -84,6 +84,7 @@ var vm = new Vue({
 			this.resetOrderStatus();
 			vm.orderStatusCondition[0].active=false;
 			vm.orderStatusCondition[index].active = true;
+			this.draw(true);
 		},
 		getActiveOrderStatusValue:function(){
 			for(var i = 1;i < this.orderStatusCondition.length;i++){
@@ -117,6 +118,9 @@ var vm = new Vue({
 						setSortCondition(d);
 						// 添加额外的参数发送到服务器（搜索栏的查询参数）
 						d = Object.assign(d, params);
+					},
+					error : function(res) {
+						layer.msg("查询数据失败", {icon:5});
 					}
 				},
 				"destroy": true,
@@ -341,19 +345,20 @@ var vm = new Vue({
 			separator : ' - ',
 			locale : daterangepicker_cn
 		}, function(start, end, label) { // 选择日期后回调
-			vm.createDateTimeRange = start.format('YYYY/MM/DD') +' - ' +  end.format('YYYY-MM-DD');
+			vm.createDateTimeStart = start.format('YYYY/MM/DD'); 
+			vm.createDateTimeEnd = end.format('YYYY/MM/DD');
+			vm.draw(true);
 		}).change(function() {
 			// 显示/隐藏clear按钮
 		});
-		vm.createDateTimeRange = moment().startOf('day').format('YYYY/MM/DD') + ' - ' + moment().format('YYYY/MM/DD');
-		$('#createDate_search_daterange').val(vm.createDateTimeRange);
 		
 		this.initOrderType();
 		
 		this.initPlatformData();
 		
 		this.initDataTable();
-		
+
+		$('#createDate_search_daterange').val(this.createDateTimeStart + ' - ' + this.createDateTimeEnd);
 		//** 屏幕变更时重新计算表格内容高度
 		$(window).resize(function(){
 			vm.refreshTableHeight();

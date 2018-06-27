@@ -101,11 +101,11 @@
 	
 	<!-- 高级搜索：查询参数条件 -->
 	<sql id="selectByAdvancedSearch_Where_QueryExample">
-		<if test="params.OrderState != null and params.OrderState != ''" >
-			and t.order_status = #{params.OrderState}
+		<if test="params.orderState != null and params.orderState != ''" >
+			and t.order_status = #{params.orderState}
 		</if>
 		
-		<if test="params.createDatetimeStart != null and params.createDatetimeStart != '' and params.createDatetimeEnd != null and params.createDatetimeEnd != ''" >
+		<if test="params.createDatetimeStart != null and params.createDatetimeEnd != null" >
 			and t.create_datetime between #{params.createDatetimeStart} and #{params.createDatetimeEnd}
 		</if>
 		
@@ -126,10 +126,10 @@
 		</if>
 		
 		<if test="params.key != null and params.key != ''" >
-			and t.cust_name like '%${params.key}%'
-			and t.cust_phone like '%${params.key}%'
-			and t.brand like '%${params.key}%'
-			and t.product like '%${params.key}%'
+			and(t.cust_name like '%${params.key}%' or
+				t.cust_phone like '%${params.key}%' or
+				t.brand like '%${params.key}%' or
+				t.product like '%${params.key}%')
 		</if>
 	</sql>
   

@@ -28,7 +28,7 @@
 			<div class="col-xs-1 col-sm-1 col-md-1">
 				<div class="row">
 					<input v-model="searchKey" id="searchKey" type="text" class="form-control keyword-ipt" placeholder="关键字" style="font-size: 12px;"/>
-					<i class="fa fa-search inlay"></i>
+					<i class="fa fa-search inlay" @click="draw(true)"></i>
 				</div>
 			</div>
 			<div class="col-xs-2 col-sm-2 col-md-2">
@@ -37,7 +37,7 @@
 						<div id="createDate_div" class="input-daterange">
 							<input id="createDate_search_daterange"
 								class="form-control pointer fillet" type="text"
-								value="" readonly="readonly" v-model="createDateTimeRange"
+								value="" readonly="readonly" 
 								placeholder="下单时间" /> 
 						</div>
 					</div>

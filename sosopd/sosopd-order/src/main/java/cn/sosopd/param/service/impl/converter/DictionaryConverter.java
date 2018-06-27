@@ -11,7 +11,7 @@ public class DictionaryConverter {
 	public static CommonParamDto converCommon(SosopdSystemDictionary data) {
 		CommonParamDto dto = new CommonParamDto();
 		if (null != data) {
-			dto.setId(String.valueOf(data.getId()));
+			dto.setId(data.getKey());
 			dto.setText(data.getValue());
 		}
 		return dto;
