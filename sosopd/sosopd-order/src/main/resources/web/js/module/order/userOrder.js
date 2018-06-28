@@ -59,7 +59,7 @@ var vm = new Vue({
 				// 关键字
 				key:this.searchKey,
 				// 时间范围
-				createDatetimeStart:this.createDateTimeStart + ' 00:00:00',
+				createDatetimeStart:this.createDateTimeStart + ' 00:00:00' ,
 				createDatetimeEnd:this.createDateTimeEnd + ' 23:59:59',
 				// 地址
 				provinceId:"",
