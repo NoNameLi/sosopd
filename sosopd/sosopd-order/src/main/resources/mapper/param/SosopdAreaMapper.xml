@@ -13,23 +13,6 @@
     <result column="order" property="order" jdbcType="TINYINT" />
   </resultMap>
 
-  <select id="selectByParentId" resultMap="BaseResultMap" parameterType="java.lang.Short" >
-    select 
-    <include refid="Base_Column_List" />
-    from sosopd_area
-    where 
-     <choose>
-         <when test="parentId != null">
-             parent_id = #{parentId,jdbcType=SMALLINT}
-         </when>
-         <otherwise>
-             parent_id = 0
-         </otherwise>
-     </choose>
-  </select>
-  
-
-
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -89,8 +72,25 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, parent_id, initial, initials, pinyin, suffix, code, order
+    id, name, parent_id, initial, initials, pinyin, suffix, code, `order`
   </sql>
+  
+  <select id="selectByParentId" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from sosopd_area
+    where 
+     <choose>
+         <when test="parentId != null">
+             parent_id = #{parentId,jdbcType=SMALLINT}
+         </when>
+         <otherwise>
+             parent_id = 0
+         </otherwise>
+     </choose>
+  </select>
+  
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.sosopd.param.entity.SosopdAreaExample" >
     select
     <if test="distinct" >

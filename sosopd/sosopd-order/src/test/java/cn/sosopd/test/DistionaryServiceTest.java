@@ -33,9 +33,9 @@ public class DistionaryServiceTest {
 	@Test
 	public void getArea() {
 		
-		System.out.println(Json.toJson(areaService.getAreaByParentId(null), JsonFormat.nice()));
-		System.out.println(Json.toJson(areaService.getAreaByParentId((short)0), JsonFormat.nice()));
-		System.out.println(Json.toJson(areaService.getAreaByParentId((short)17), JsonFormat.nice()));
+		System.out.println(Json.toJson(areaService.getAreaByParentId(null).size(), JsonFormat.nice()));
+		System.out.println(Json.toJson(areaService.getAreaByParentId((short)0).size(), JsonFormat.nice()));
+		System.out.println(Json.toJson(areaService.getAreaByParentId((short)17).size(), JsonFormat.nice()));
 		
 	}
 	
