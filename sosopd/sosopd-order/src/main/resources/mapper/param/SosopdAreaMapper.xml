@@ -2,29 +2,135 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.sosopd.param.mapper.SosopdAreaMapper" >
   <resultMap id="BaseResultMap" type="cn.sosopd.param.entity.SosopdArea" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="area_id" property="areaId" jdbcType="INTEGER" />
-    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
-    <result column="area_name" property="areaName" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="SMALLINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="SMALLINT" />
+    <result column="initial" property="initial" jdbcType="CHAR" />
+    <result column="initials" property="initials" jdbcType="VARCHAR" />
+    <result column="pinyin" property="pinyin" jdbcType="VARCHAR" />
+    <result column="suffix" property="suffix" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="CHAR" />
+    <result column="order" property="order" jdbcType="TINYINT" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, area_id, parent_id, area_name
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+
+  <select id="selectByParentId" resultMap="BaseResultMap" parameterType="java.lang.Short" >
     select 
     <include refid="Base_Column_List" />
     from sosopd_area
-    where id = #{id,jdbcType=INTEGER}
+    where 
+     <choose>
+         <when test="parentId != null">
+             parent_id = #{parentId,jdbcType=SMALLINT}
+         </when>
+         <otherwise>
+             parent_id = 0
+         </otherwise>
+     </choose>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  
+
+
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, parent_id, initial, initials, pinyin, suffix, code, order
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.sosopd.param.entity.SosopdAreaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sosopd_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from sosopd_area
+    where id = #{id,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
     delete from sosopd_area
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=SMALLINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.sosopd.param.entity.SosopdAreaExample" >
+    delete from sosopd_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
   </delete>
   <insert id="insert" parameterType="cn.sosopd.param.entity.SosopdArea" >
-    insert into sosopd_area (id, area_id, parent_id, 
-      area_name)
-    values (#{id,jdbcType=INTEGER}, #{areaId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
-      #{areaName,jdbcType=VARCHAR})
+    insert into sosopd_area (id, name, parent_id, 
+      initial, initials, pinyin, 
+      suffix, code, order)
+    values (#{id,jdbcType=SMALLINT}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=SMALLINT}, 
+      #{initial,jdbcType=CHAR}, #{initials,jdbcType=VARCHAR}, #{pinyin,jdbcType=VARCHAR}, 
+      #{suffix,jdbcType=VARCHAR}, #{code,jdbcType=CHAR}, #{order,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="cn.sosopd.param.entity.SosopdArea" >
     insert into sosopd_area
@@ -32,51 +138,157 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="areaId != null" >
-        area_id,
+      <if test="name != null" >
+        name,
       </if>
       <if test="parentId != null" >
         parent_id,
       </if>
-      <if test="areaName != null" >
-        area_name,
+      <if test="initial != null" >
+        initial,
+      </if>
+      <if test="initials != null" >
+        initials,
+      </if>
+      <if test="pinyin != null" >
+        pinyin,
+      </if>
+      <if test="suffix != null" >
+        suffix,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="order != null" >
+        order,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=SMALLINT},
       </if>
-      <if test="areaId != null" >
-        #{areaId,jdbcType=INTEGER},
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="parentId != null" >
-        #{parentId,jdbcType=INTEGER},
+        #{parentId,jdbcType=SMALLINT},
       </if>
-      <if test="areaName != null" >
-        #{areaName,jdbcType=VARCHAR},
+      <if test="initial != null" >
+        #{initial,jdbcType=CHAR},
+      </if>
+      <if test="initials != null" >
+        #{initials,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyin != null" >
+        #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="suffix != null" >
+        #{suffix,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=CHAR},
+      </if>
+      <if test="order != null" >
+        #{order,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
+  <select id="countByExample" parameterType="cn.sosopd.param.entity.SosopdAreaExample" resultType="java.lang.Integer" >
+    select count(*) from sosopd_area
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sosopd_area
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=SMALLINT},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=SMALLINT},
+      </if>
+      <if test="record.initial != null" >
+        initial = #{record.initial,jdbcType=CHAR},
+      </if>
+      <if test="record.initials != null" >
+        initials = #{record.initials,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pinyin != null" >
+        pinyin = #{record.pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suffix != null" >
+        suffix = #{record.suffix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        code = #{record.code,jdbcType=CHAR},
+      </if>
+      <if test="record.order != null" >
+        order = #{record.order,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sosopd_area
+    set id = #{record.id,jdbcType=SMALLINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=SMALLINT},
+      initial = #{record.initial,jdbcType=CHAR},
+      initials = #{record.initials,jdbcType=VARCHAR},
+      pinyin = #{record.pinyin,jdbcType=VARCHAR},
+      suffix = #{record.suffix,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=CHAR},
+      order = #{record.order,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="cn.sosopd.param.entity.SosopdArea" >
     update sosopd_area
     <set >
-      <if test="areaId != null" >
-        area_id = #{areaId,jdbcType=INTEGER},
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="parentId != null" >
-        parent_id = #{parentId,jdbcType=INTEGER},
+        parent_id = #{parentId,jdbcType=SMALLINT},
       </if>
-      <if test="areaName != null" >
-        area_name = #{areaName,jdbcType=VARCHAR},
+      <if test="initial != null" >
+        initial = #{initial,jdbcType=CHAR},
+      </if>
+      <if test="initials != null" >
+        initials = #{initials,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyin != null" >
+        pinyin = #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="suffix != null" >
+        suffix = #{suffix,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=CHAR},
+      </if>
+      <if test="order != null" >
+        order = #{order,jdbcType=TINYINT},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=SMALLINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.sosopd.param.entity.SosopdArea" >
     update sosopd_area
-    set area_id = #{areaId,jdbcType=INTEGER},
-      parent_id = #{parentId,jdbcType=INTEGER},
-      area_name = #{areaName,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    set name = #{name,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=SMALLINT},
+      initial = #{initial,jdbcType=CHAR},
+      initials = #{initials,jdbcType=VARCHAR},
+      pinyin = #{pinyin,jdbcType=VARCHAR},
+      suffix = #{suffix,jdbcType=VARCHAR},
+      code = #{code,jdbcType=CHAR},
+      order = #{order,jdbcType=TINYINT}
+    where id = #{id,jdbcType=SMALLINT}
   </update>
 </mapper>

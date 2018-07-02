@@ -4,24 +4,49 @@ import lombok.Data;
 
 @Data
 public class SosopdArea {
-    /**
+	 /**
      * 
      */
-    private Integer id;
+    private Short id;
 
     /**
      * 
      */
-    private Integer areaId;
+    private String name;
 
     /**
      * 
      */
-    private Integer parentId;
+    private Short parentId;
 
     /**
      * 
      */
-    private String areaName;
+    private String initial;
+
+    /**
+     * 
+     */
+    private String initials;
+
+    /**
+     * 
+     */
+    private String pinyin;
+
+    /**
+     * 
+     */
+    private String suffix;
+
+    /**
+     * 
+     */
+    private String code;
+
+    /**
+     * 
+     */
+    private Byte order;
 
 }
