@@ -9,7 +9,7 @@ var vm = new Vue({
 		
 		orderStatus : "",
 		searchKey : "",
-		createDateTimeStart : moment().startOf('day').format('YYYY/MM/DD'),
+		createDateTimeStart :moment().subtract(29, 'days').format('YYYY/MM/DD'),
 		createDateTimeEnd : moment().format('YYYY/MM/DD'),
 		addressId : "",
 		platform : "",
@@ -195,7 +195,7 @@ var vm = new Vue({
 								}
 							});
 							
-							vm.checkCount = $("tbody input[type='checkbox']:checked").length;
+							vm.tableInitCount = $("tbody input[type='checkbox']:checked").length;
 						}
 					}
 				});
@@ -211,13 +211,13 @@ var vm = new Vue({
 									$this.addClass('selected');
 									$this.find('[type="checkbox"]')[0].checked=true;
 								}
-								vm.checkCount = $("tbody input[type='checkbox']:checked").length;
+								vm.tableInitCount = $("tbody input[type='checkbox']:checked").length;
 								var checkDom = $("tbody").find("input[type='checkbox']").length;
 								//判断是否全部选中
 								if(vm.checkCount<checkDom){
-									$('#checkbox')[0].checked=false;
+									$('.checkbox')[0].checked=false;
 								}else{
-									$('#checkbox')[0].checked=true;
+									$('.checkbox')[0].checked=true;
 								}
 							}
 						}else{
@@ -226,7 +226,6 @@ var vm = new Vue({
 					}
 					
 				}, 'tr');
-				this.tableInitCount=1;
 			}
 		},
 		/* 重绘左侧table最大显示的高度（不超出屏幕） */
@@ -321,6 +320,15 @@ var vm = new Vue({
 					layer.msg("工单类型初始化失败", {icon:5});
 				}
 			});
+		},
+		sendOrder:function(){
+			
+		},
+		editOrder:function(){
+			
+		},
+		deleteOrder:function(){
+			
 		}
 	},
 	mounted: function(){
@@ -363,6 +371,5 @@ var vm = new Vue({
 		$(window).resize(function(){
 			vm.refreshTableHeight();
 		});
-		
 	}
 });

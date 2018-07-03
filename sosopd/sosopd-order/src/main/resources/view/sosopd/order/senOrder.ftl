@@ -79,47 +79,6 @@
 			</div>
 		</div>
 		
-		<div id="selectOperator" class="col-xs-12 col-sm-12 col-md-12 cursor" v-show="tableInitCount">
-			<div class="col-xs-2 col-sm-2 col-md-2">
-				<div class = "row">
-					<span class = "form-control-simple">
-						<i class="fa fa-paper-plane fa-lg" ></i>
-					</span>
-				</div>
-			</div>
-			<div class="col-xs-6 col-sm-6 col-md-6">
-				<div class = "row">
-					<span class = "form-control-simple">
-						已选择{{tableInitCount}}张
-					</span>
-				</div>
-			</div>
-			<div class="col-xs-2 col-sm-2 col-md-2">
-				<div class = "row" v-show="tableInitCount == 1">
-					<span class = "form-control-simple">
-						<i class="fa fa-pencil-square-o fa-lg"></i>
-						编辑
-					</span>
-				</div>
-			</div>
-			<div class="col-xs-2 col-sm-2 col-md-2">
-				<div class = "row">
-					<span class = "form-control-simple">
-						<i class="fa fa-trash-o fa-lg"></i>
-						删除
-					</span>
-				</div>
-			</div>
-		</div>
-		
-		
-		<div data-step="3" data-intro="这里是表格展示区，工单数据的显示，可以进行分页和排序等操作！" id="table_responsive" class="">
-			<table id="datatable" class="table data-table table-striped table-bordered-- table-hover tooltip-demo">
-				
-			</table>
-		</div>
-		
-		
 	</div>
 	
 	<!-- 加载JS -- begin -->
