@@ -6,6 +6,7 @@ var vm = new Vue({
 	el: '#wrapper',
 	data: {
 		tableInitCount: 0, // 结算单列表初始化记数
+		selectOrder:[],
 		
 		orderStatus : "",
 		searchKey : "",
@@ -211,7 +212,14 @@ var vm = new Vue({
 									$this.addClass('selected');
 									$this.find('[type="checkbox"]')[0].checked=true;
 								}
-								vm.tableInitCount = $("tbody input[type='checkbox']:checked").length;
+								var checkDom = $("tbody input[type='checkbox']:checked");
+								// 数组清空
+								vm.selectOrder.splice(0);
+								
+								for(var i = 0; i< checkDom.length;i++){
+									vm.selectOrder.push(checkDom[i].value);
+								}
+								vm.tableInitCount = checkDom.length;
 								var checkDom = $("tbody").find("input[type='checkbox']").length;
 								//判断是否全部选中
 								if(vm.checkCount<checkDom){
@@ -323,6 +331,15 @@ var vm = new Vue({
 		},
 		sendOrder:function(){
 			
+//			layer.open({
+//				title :"派单",
+//				type : 2,
+//				anim : -1,
+//				skin : 'animated fadeInRight',
+//				area : ['60%', '80%'],
+//				shadeClose : true,
+//				content : contextPath+'/sosopd/order/sendOrder.html'
+//			});
 		},
 		editOrder:function(){
 			

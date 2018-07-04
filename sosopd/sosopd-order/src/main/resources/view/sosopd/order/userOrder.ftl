@@ -83,7 +83,7 @@
 			<div class="col-xs-2 col-sm-2 col-md-2">
 				<div class = "row">
 					<span class = "form-control-simple">
-						<i class="fa fa-paper-plane fa-lg" ></i>
+						<i class="fa fa-paper-plane fa-lg" @click="sendOrder" ></i>
 					</span>
 				</div>
 			</div>

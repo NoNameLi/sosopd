@@ -15,6 +15,7 @@ import com.github.pagehelper.PageInfo;
 
 import cn.sosopd.common.dto.JQueryDataTableParam;
 import cn.sosopd.common.dto.JQueryDataTableResponseData;
+import cn.sosopd.common.dto.Response;
 import cn.sosopd.common.exception.ServiceException;
 import cn.sosopd.common.util.SysConstants;
 import cn.sosopd.common.util.UserTokenLocal;
@@ -33,7 +34,7 @@ public class OrderController {
 	@RequestMapping("/list.json")
 	@ResponseBody
 	public JQueryDataTableResponseData queryOrderByPage(HttpServletRequest request, QueryOrderParams params) {
-		System.out.println(Json.toJson(params,JsonFormat.nice()));
+		System.out.println(Json.toJson(params, JsonFormat.nice()));
 		JQueryDataTableParam jqp = JQueryDataTableParam.buildParams(request);
 		PageInfo<?> pageInfo = orderService.queryOrdersByPage(UserTokenLocal.getCurrentUser(), jqp.convter(), params);
 		return JQueryDataTableResponseData.buildResponseDataFromPageInfo(jqp, pageInfo);
@@ -41,16 +42,21 @@ public class OrderController {
 
 	@RequestMapping("/sendOrderToPlatform.json")
 	@ResponseBody
-	public void sendOrder2Paltform(List<Integer> orderIds, Integer platformAccountId) throws ServiceException {
-		ParamValidator.assertNotNull(orderIds, "工单数据不能为空");
-		ParamValidator.assertNotNull(platformAccountId, "派单对象不能为空");
+	public Response sendOrder2Paltform(List<Integer> orderIds, Integer platformAccountId) throws ServiceException {
+		ParamValidator.assertNotNull(orderIds, "派单工单不能为空");
+		ParamValidator.assertNotNull(platformAccountId, "派单平台不能为空");
+
+		orderService.sendOrder2Paltform(UserTokenLocal.getCurrentUser(), orderIds, platformAccountId);
+		return new Response().success();
+
 	}
 
 	@RequestMapping("/addOrder.json")
 	@ResponseBody
-	public void addOrderByUser(CreateOrderParams orderData) throws ServiceException {
+	public Response addOrderByUser(CreateOrderParams orderData) throws ServiceException {
 
 		orderService.createOrder(UserTokenLocal.getCurrentUser(), orderData);
+		return new Response().success();
 
 	}
 }
