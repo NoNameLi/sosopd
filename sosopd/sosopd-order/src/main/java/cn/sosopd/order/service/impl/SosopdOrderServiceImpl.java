@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -48,9 +50,14 @@ public class SosopdOrderServiceImpl implements SosopdOrderService {
 
 	}
 
+	@Transactional(rollbackFor = ServiceException.class, propagation = Propagation.REQUIRED)
 	public void sendOrder2Paltform(SosopdUser operator, List<Integer> orderIds, Integer platformAccountId)
 			throws ServiceException {
-		// TODO Auto-generated method stub
+		// 校验数据的逻辑正确性
+		// 事务
+		// 更新 工单 平台账号 ID 状态 和时间
+		// 添加 任务记录
+
 	}
 
 	@Override

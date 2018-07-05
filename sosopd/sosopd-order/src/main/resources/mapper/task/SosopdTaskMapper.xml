@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.sosopd.task.mapper.SosopdTaskMapper" >
+  <resultMap id="BaseResultMap" type="cn.sosopd.task.entity.SosopdTask" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="task_type" property="taskType" jdbcType="VARCHAR" />
+    <result column="task_exec_datetime" property="taskExecDatetime" jdbcType="TIMESTAMP" />
+    <result column="task_status" property="taskStatus" jdbcType="CHAR" />
+    <result column="task_result" property="taskResult" jdbcType="VARCHAR" />
+    <result column="create_datetime" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="last_sync_datetime" property="lastSyncDatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_id, task_type, task_exec_datetime, task_status, task_result, create_datetime, 
+    last_sync_datetime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.sosopd.task.entity.SosopdTaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sosopd_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sosopd_task
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sosopd_task
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.sosopd.task.entity.SosopdTaskExample" >
+    delete from sosopd_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.sosopd.task.entity.SosopdTask" >
+    insert into sosopd_task (order_id, task_type, task_exec_datetime, 
+      task_status, task_result, create_datetime, 
+      last_sync_datetime)
+    values (#{orderId,jdbcType=INTEGER}, #{taskType,jdbcType=VARCHAR}, #{taskExecDatetime,jdbcType=TIMESTAMP}, 
+      #{taskStatus,jdbcType=CHAR}, #{taskResult,jdbcType=VARCHAR}, #{createDatetime,jdbcType=TIMESTAMP}, 
+      #{lastSyncDatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  
+  <insert id="insertUpdate" parameterType="cn.sosopd.task.entity.SosopdTask" >
+    replace into sosopd_task (order_id, task_type, task_exec_datetime, 
+      task_status, task_result, create_datetime, 
+      last_sync_datetime)
+    values (#{orderId,jdbcType=INTEGER}, #{taskType,jdbcType=VARCHAR}, #{taskExecDatetime,jdbcType=TIMESTAMP}, 
+      #{taskStatus,jdbcType=CHAR}, #{taskResult,jdbcType=VARCHAR}, #{createDatetime,jdbcType=TIMESTAMP}, 
+      #{lastSyncDatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="cn.sosopd.task.entity.SosopdTask" >
+    insert into sosopd_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="taskType != null" >
+        task_type,
+      </if>
+      <if test="taskExecDatetime != null" >
+        task_exec_datetime,
+      </if>
+      <if test="taskStatus != null" >
+        task_status,
+      </if>
+      <if test="taskResult != null" >
+        task_result,
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime,
+      </if>
+      <if test="lastSyncDatetime != null" >
+        last_sync_datetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="taskType != null" >
+        #{taskType,jdbcType=VARCHAR},
+      </if>
+      <if test="taskExecDatetime != null" >
+        #{taskExecDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskStatus != null" >
+        #{taskStatus,jdbcType=CHAR},
+      </if>
+      <if test="taskResult != null" >
+        #{taskResult,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastSyncDatetime != null" >
+        #{lastSyncDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.sosopd.task.entity.SosopdTaskExample" resultType="java.lang.Integer" >
+    select count(*) from sosopd_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sosopd_task
+    <set >
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskType != null" >
+        task_type = #{record.taskType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskExecDatetime != null" >
+        task_exec_datetime = #{record.taskExecDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.taskStatus != null" >
+        task_status = #{record.taskStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.taskResult != null" >
+        task_result = #{record.taskResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDatetime != null" >
+        create_datetime = #{record.createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastSyncDatetime != null" >
+        last_sync_datetime = #{record.lastSyncDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sosopd_task
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      task_type = #{record.taskType,jdbcType=VARCHAR},
+      task_exec_datetime = #{record.taskExecDatetime,jdbcType=TIMESTAMP},
+      task_status = #{record.taskStatus,jdbcType=CHAR},
+      task_result = #{record.taskResult,jdbcType=VARCHAR},
+      create_datetime = #{record.createDatetime,jdbcType=TIMESTAMP},
+      last_sync_datetime = #{record.lastSyncDatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.sosopd.task.entity.SosopdTask" >
+    update sosopd_task
+    <set >
+      <if test="taskType != null" >
+        task_type = #{taskType,jdbcType=VARCHAR},
+      </if>
+      <if test="taskExecDatetime != null" >
+        task_exec_datetime = #{taskExecDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskStatus != null" >
+        task_status = #{taskStatus,jdbcType=CHAR},
+      </if>
+      <if test="taskResult != null" >
+        task_result = #{taskResult,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastSyncDatetime != null" >
+        last_sync_datetime = #{lastSyncDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.sosopd.task.entity.SosopdTask" >
+    update sosopd_task
+    set task_type = #{taskType,jdbcType=VARCHAR},
+      task_exec_datetime = #{taskExecDatetime,jdbcType=TIMESTAMP},
+      task_status = #{taskStatus,jdbcType=CHAR},
+      task_result = #{taskResult,jdbcType=VARCHAR},
+      create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      last_sync_datetime = #{lastSyncDatetime,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

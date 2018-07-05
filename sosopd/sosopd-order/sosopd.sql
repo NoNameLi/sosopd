@@ -13,10 +13,12 @@
 
 
 -- 导出 sosopd 的数据库结构
+DROP DATABASE IF EXISTS `sosopd`;
 CREATE DATABASE IF NOT EXISTS `sosopd` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `sosopd`;
 
 -- 导出  表 sosopd.sosopd_area 结构
+DROP TABLE IF EXISTS `sosopd_area`;
 CREATE TABLE IF NOT EXISTS `sosopd_area` (
   `id` smallint(5) NOT NULL,
   `name` varchar(270) DEFAULT NULL,
@@ -3614,10 +3616,11 @@ INSERT INTO `sosopd_area` (`id`, `name`, `parent_id`, `initial`, `initials`, `pi
 /*!40000 ALTER TABLE `sosopd_area` ENABLE KEYS */;
 
 -- 导出  表 sosopd.sosopd_order 结构
+DROP TABLE IF EXISTS `sosopd_order`;
 CREATE TABLE IF NOT EXISTS `sosopd_order` (
   `order_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '工单ID',
   `user_id` int(11) NOT NULL COMMENT '工单所属用户ID',
-  `platform_account_id` int(11) DEFAULT NULL COMMENT '工单派发平台ID',
+  `platform_account_id` int(11) DEFAULT NULL COMMENT '工单派发平台z账号ID',
   `order_status` varchar(50) NOT NULL DEFAULT 'no_send' COMMENT '工单状态（未派、发送中、已派、失败），默认未派',
   `cust_name` varchar(100) DEFAULT NULL COMMENT '工单顾客姓名',
   `cust_phone` varchar(20) DEFAULT NULL COMMENT '工单顾客电话',
@@ -3678,6 +3681,7 @@ INSERT INTO `sosopd_order` (`order_id`, `user_id`, `platform_account_id`, `order
 /*!40000 ALTER TABLE `sosopd_order` ENABLE KEYS */;
 
 -- 导出  表 sosopd.sosopd_order_attached 结构
+DROP TABLE IF EXISTS `sosopd_order_attached`;
 CREATE TABLE IF NOT EXISTS `sosopd_order_attached` (
   `order_id` int(11) NOT NULL COMMENT '工单ID',
   `attribute_key` varchar(20) DEFAULT NULL COMMENT '属性ID',
@@ -3691,6 +3695,7 @@ CREATE TABLE IF NOT EXISTS `sosopd_order_attached` (
 /*!40000 ALTER TABLE `sosopd_order_attached` ENABLE KEYS */;
 
 -- 导出  表 sosopd.sosopd_order_platform 结构
+DROP TABLE IF EXISTS `sosopd_order_platform`;
 CREATE TABLE IF NOT EXISTS `sosopd_order_platform` (
   `order_id` int(11) NOT NULL COMMENT '派单工单id',
   `platform_id` int(11) NOT NULL COMMENT '所属平台id',
@@ -3714,6 +3719,7 @@ CREATE TABLE IF NOT EXISTS `sosopd_order_platform` (
 /*!40000 ALTER TABLE `sosopd_order_platform` ENABLE KEYS */;
 
 -- 导出  表 sosopd.sosopd_send_order_log 结构
+DROP TABLE IF EXISTS `sosopd_send_order_log`;
 CREATE TABLE IF NOT EXISTS `sosopd_send_order_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '记录id',
   `date` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '报表日期',
@@ -3734,6 +3740,7 @@ CREATE TABLE IF NOT EXISTS `sosopd_send_order_log` (
 /*!40000 ALTER TABLE `sosopd_send_order_log` ENABLE KEYS */;
 
 -- 导出  表 sosopd.sosopd_system_dictionary 结构
+DROP TABLE IF EXISTS `sosopd_system_dictionary`;
 CREATE TABLE IF NOT EXISTS `sosopd_system_dictionary` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(50) DEFAULT NULL,
@@ -3776,6 +3783,7 @@ INSERT INTO `sosopd_system_dictionary` (`id`, `type`, `key`, `value`, `desc`) VA
 /*!40000 ALTER TABLE `sosopd_system_dictionary` ENABLE KEYS */;
 
 -- 导出  表 sosopd.sosopd_system_dictionary_type 结构
+DROP TABLE IF EXISTS `sosopd_system_dictionary_type`;
 CREATE TABLE IF NOT EXISTS `sosopd_system_dictionary_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '字典数据类型id',
   `type_key` varchar(50) NOT NULL COMMENT '字典数据类型',
@@ -3798,7 +3806,27 @@ INSERT INTO `sosopd_system_dictionary_type` (`id`, `type_key`, `desc`) VALUES
 	(9, 'order_source_type', '工单信息来源类型');
 /*!40000 ALTER TABLE `sosopd_system_dictionary_type` ENABLE KEYS */;
 
+-- 导出  表 sosopd.sosopd_task 结构
+DROP TABLE IF EXISTS `sosopd_task`;
+CREATE TABLE IF NOT EXISTS `sosopd_task` (
+  `order_id` int(11) NOT NULL COMMENT '任务的工单',
+  `task_type` varchar(50) DEFAULT NULL COMMENT '任务类型（在任务模板中定义）',
+  `task_exec_datetime` datetime NOT NULL COMMENT '任务执行时间线',
+  `task_status` enum('executing','success','fail') DEFAULT NULL COMMENT '任务的状态',
+  `task_result` varchar(500) DEFAULT NULL COMMENT '执行结果备注',
+  `create_datetime` datetime DEFAULT NULL,
+  `last_sync_datetime` datetime DEFAULT NULL,
+  PRIMARY KEY (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='任务表';
+
+-- 正在导出表  sosopd.sosopd_task 的数据：~0 rows (大约)
+/*!40000 ALTER TABLE `sosopd_task` DISABLE KEYS */;
+INSERT INTO `sosopd_task` (`order_id`, `task_type`, `task_exec_datetime`, `task_status`, `task_result`, `create_datetime`, `last_sync_datetime`) VALUES
+	(1, NULL, '2018-07-05 19:10:45', 'executing', NULL, '2018-07-05 19:10:45', NULL);
+/*!40000 ALTER TABLE `sosopd_task` ENABLE KEYS */;
+
 -- 导出  表 sosopd.sosopd_third_platform 结构
+DROP TABLE IF EXISTS `sosopd_third_platform`;
 CREATE TABLE IF NOT EXISTS `sosopd_third_platform` (
   `platform_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '平台记录id',
   `platfrom_name` varchar(255) DEFAULT NULL COMMENT '平台名称',
@@ -3826,6 +3854,7 @@ INSERT INTO `sosopd_third_platform` (`platform_id`, `platfrom_name`, `platform_t
 /*!40000 ALTER TABLE `sosopd_third_platform` ENABLE KEYS */;
 
 -- 导出  表 sosopd.sosopd_third_platform_account 结构
+DROP TABLE IF EXISTS `sosopd_third_platform_account`;
 CREATE TABLE IF NOT EXISTS `sosopd_third_platform_account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -3856,6 +3885,7 @@ INSERT INTO `sosopd_third_platform_account` (`id`, `user_id`, `platform_id`, `ac
 /*!40000 ALTER TABLE `sosopd_third_platform_account` ENABLE KEYS */;
 
 -- 导出  表 sosopd.sosopd_user 结构
+DROP TABLE IF EXISTS `sosopd_user`;
 CREATE TABLE IF NOT EXISTS `sosopd_user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `user_name` varchar(100) DEFAULT NULL COMMENT '用户姓名',
@@ -3876,6 +3906,7 @@ INSERT INTO `sosopd_user` (`user_id`, `user_name`, `user_phone`, `user_qq`, `use
 /*!40000 ALTER TABLE `sosopd_user` ENABLE KEYS */;
 
 -- 导出  表 sosopd.sosopd_user_auth 结构
+DROP TABLE IF EXISTS `sosopd_user_auth`;
 CREATE TABLE IF NOT EXISTS `sosopd_user_auth` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '登录账号ID',
   `user_id` int(11) NOT NULL,

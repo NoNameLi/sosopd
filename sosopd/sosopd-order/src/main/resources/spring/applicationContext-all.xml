@@ -20,6 +20,9 @@
 	
 	<!-- 事务相关配置 -->
 	<import resource="classpath*:spring/applicationContext-trans.xml" />
+	
+	<!-- 调度任务相关配置 -->
+	<import resource="classpath*:spring/applicationContext-task.xml" />
 
 	<!-- Quartz任务调度相关配置文件 -->
 <!-- 	<import resource="classpath*:applicationContext-quartz.xml" /> -->
