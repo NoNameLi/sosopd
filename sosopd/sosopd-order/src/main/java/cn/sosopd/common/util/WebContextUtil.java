@@ -1,5 +1,7 @@
 package cn.sosopd.common.util;
 
+import java.util.Objects;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,7 +37,7 @@ public class WebContextUtil {
     public static String getCookieValue(String cookieName) {
         Cookie[] cookies = getRequest().getCookies();
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(cookieName)) {
+            if (Objects.equals(cookieName, cookie.getName())) {
                 return cookie.getValue();
             }
         }

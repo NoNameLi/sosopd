@@ -10,7 +10,7 @@ import lombok.Data;
 public class PageParams implements Serializable {
     private static final long serialVersionUID = -3612735054166960475L;
 
-    private int currentPage;
+    private Integer currentPage;
 
-    private int pageSize;
+    private Integer pageSize;
 }

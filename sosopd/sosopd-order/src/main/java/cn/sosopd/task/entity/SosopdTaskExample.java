@@ -23,12 +23,12 @@ public class SosopdTaskExample {
     /**
      * sosopd_task
      */
-    protected int limitStart = 0;
+    protected Integer limitStart = 0;
 
     /**
      * sosopd_task
      */
-    protected int limitEnd = 20;
+    protected Integer limitEnd = 20;
 
     public SosopdTaskExample() {
         oredCriteria = new ArrayList<Criteria>();

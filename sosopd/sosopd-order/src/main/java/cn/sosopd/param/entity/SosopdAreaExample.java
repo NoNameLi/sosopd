@@ -22,12 +22,12 @@ public class SosopdAreaExample {
     /**
      * sosopd_area
      */
-    protected int limitStart = 0;
+    protected Integer limitStart = 0;
 
     /**
      * sosopd_area
      */
-    protected int limitEnd = 20;
+    protected Integer limitEnd = 20;
 
     public SosopdAreaExample() {
         oredCriteria = new ArrayList<Criteria>();

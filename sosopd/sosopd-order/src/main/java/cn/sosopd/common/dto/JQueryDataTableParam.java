@@ -1,6 +1,7 @@
 package cn.sosopd.common.dto;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,12 +23,12 @@ public class JQueryDataTableParam implements Serializable {
     /**
      * 开始行号
      */
-    private int start;
+    private Integer start;
 
     /**
      * 查询条数
      */
-    private int length;
+    private Integer length;
 
     /**
      * 排序条件
@@ -35,18 +36,18 @@ public class JQueryDataTableParam implements Serializable {
     private String sortCondition;
 
     public static JQueryDataTableParam buildParams(HttpServletRequest request) {
-        if (null != request.getParameter("draw") && !"".equals(request.getParameter("draw"))) {
+        if (null != request.getParameter("draw") && !Objects.equals("", request.getParameter("draw"))) {
             JQueryDataTableParam jqp = new JQueryDataTableParam();
 
             jqp.setDraw(request.getParameter("draw"));
 
             if (request.getParameter("start") != null) {
-                int start = Integer.parseInt(request.getParameter("start"));
+                Integer start = Integer.parseInt(request.getParameter("start"));
                 jqp.setStart(start < 0 ? 0 : start);
             }
 
             if (request.getParameter("length") != null) {
-                int length = Integer.parseInt(request.getParameter("length"));
+                Integer length = Integer.parseInt(request.getParameter("length"));
                 jqp.setLength(length < 0 ? 0 : length);
             }
 
