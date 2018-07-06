@@ -33,14 +33,14 @@ public interface SosopdOrderService {
 	 * @param params
 	 * @return
 	 */
-	List<SosopdOrderExtend> queryOrderByParams(SosopdUser operator, QueryOrderParams params);
+	List<SosopdOrderExtend> listOrderByParams(SosopdUser operator, QueryOrderParams params);
 
 	/**
 	 * 用户页面分页查询
 	 * 
 	 * @return
 	 */
-	PageInfo<?> queryOrdersByPage(SosopdUser operator, PageParams page, QueryOrderParams params);
+	PageInfo<?> listOrdersByPage(SosopdUser operator, PageParams page, QueryOrderParams params);
 
 	/**
 	 * 查询用户工单基本数据
@@ -50,7 +50,7 @@ public interface SosopdOrderService {
 	 * @return
 	 * @throws ServiceException
 	 */
-	SosopdOrder queryOrderBasicById(SosopdUser operato, Integer orderId) throws ServiceException;
+	SosopdOrder getOrderBasicById(SosopdUser operato, Integer orderId) throws ServiceException;
 
 	/**
 	 * 用户添加工单基本数据
@@ -59,7 +59,7 @@ public interface SosopdOrderService {
 	 * @param orderData
 	 * @throws ServiceException
 	 */
-	void createOrder(SosopdUser operator, CreateOrderParams orderData) throws ServiceException;
+	void saveOrder(SosopdUser operator, CreateOrderParams orderData) throws ServiceException;
 
 	/**
 	 * 用户逻辑删除工单

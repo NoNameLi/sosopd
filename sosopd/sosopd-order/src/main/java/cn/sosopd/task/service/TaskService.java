@@ -11,12 +11,13 @@ public interface TaskService {
 
 	/**
 	 * 创建初始任务
-	 * @throws ServiceException 
+	 * 
+	 * @throws ServiceException
 	 */
-	Integer createInitTask(TaskCreateDto taskDto) throws ServiceException;
-	
+	Integer saveOrInitTask(TaskCreateDto taskDto) throws ServiceException;
+
 	Integer upateTask(TaskDto taskDto) throws ServiceException;
 
-	List<TaskDto> queryTaskByStatus(TaskStatusEnum taskStatus);
+	List<TaskDto> listTaskByStatus(TaskStatusEnum taskStatus);
 
 }

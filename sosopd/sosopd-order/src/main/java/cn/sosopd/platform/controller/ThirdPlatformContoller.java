@@ -24,7 +24,7 @@ public class ThirdPlatformContoller {
 	@ResponseBody
 	public Response getPresetPlatformByType(String platformType) {
 
-		List<SosopdThirdPlatformExtend> list = thirdPlatformService.queryPlatformByType(platformType);
+		List<SosopdThirdPlatformExtend> list = thirdPlatformService.listPlatformByType(platformType);
 
 		return new Response().success(list);
 	}
@@ -32,7 +32,7 @@ public class ThirdPlatformContoller {
 	@RequestMapping(value = "/getPresetPlatform.json", method = RequestMethod.GET)
 	@ResponseBody
 	public Response getPresetPlatform() {
-		return new Response().success(thirdPlatformService.getPlatform());
+		return new Response().success(thirdPlatformService.listPlatform());
 	}
 
 }

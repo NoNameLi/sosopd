@@ -74,7 +74,7 @@ public class TokenController {
 			HttpServletRequest request) throws ServiceException {
 		SosopdUserAuth loginAccount = userAuthService.checkAccount(uname, passwd);
 		if (loginAccount != null) {
-			SosopdUser user = userService.queryUserById(loginAccount.getUserId());
+			SosopdUser user = userService.getUserById(loginAccount.getUserId());
 			request.getSession().setAttribute(SysConstants.DEFAULT_USER_SESSION_NAME, user);
 			UserTokenLocal.setUser(user);
 			return new Response().success("index.html");

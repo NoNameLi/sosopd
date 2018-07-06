@@ -43,7 +43,7 @@ public class UserController {
 		BeanValidator.validate(data);
 		SosopdUserAuth userAuth = new SosopdUserAuth();
 		BeanUtils.copyProperties(data, userAuth);
-		userAuthService.createAccount(userAuth);
+		userAuthService.saveAccount(userAuth);
 		return new Response().success("创建成功");
 	}
 
@@ -52,7 +52,7 @@ public class UserController {
 	public Response getUserInfo() throws ServiceException {
 		SosopdUser currentUser = UserTokenLocal.getCurrentUser();
 		SosopdUser user;
-		user = userService.queryUserById(currentUser.getUserId());
+		user = userService.getUserById(currentUser.getUserId());
 
 		return new Response().success(user);
 	}

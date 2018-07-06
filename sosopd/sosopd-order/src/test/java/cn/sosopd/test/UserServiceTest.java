@@ -22,7 +22,7 @@ public class UserServiceTest {
 	@Test
 	public void testQueryUser() {
 		try {
-			System.out.println(JSON.toJSONString(userService.queryUserById(2), true));
+			System.out.println(JSON.toJSONString(userService.getUserById(2), true));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

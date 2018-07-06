@@ -26,7 +26,7 @@ public class TaskServiceImpl implements TaskService {
 	private SosopdTaskMapper mapper;
 
 	@Override
-	public Integer createInitTask(TaskCreateDto taskDto) throws ServiceException {
+	public Integer saveOrInitTask(TaskCreateDto taskDto) throws ServiceException {
 
 		ParamValidator.assertNotNull(taskDto, "更新数据不能为空");
 		BeanValidator.validate(taskDto);
@@ -47,7 +47,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public List<TaskDto> queryTaskByStatus(TaskStatusEnum taskStatus) {
+	public List<TaskDto> listTaskByStatus(TaskStatusEnum taskStatus) {
 
 		SosopdTaskExample example = new SosopdTaskExample();
 		example.createCriteria().andTaskStatusEqualTo(taskStatus.name());

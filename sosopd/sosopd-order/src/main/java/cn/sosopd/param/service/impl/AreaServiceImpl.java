@@ -17,7 +17,7 @@ public class AreaServiceImpl implements AreaService {
 	SosopdAreaMapper mapper;
 
 	@Override
-	public List<SosopdArea> getAreaByParentId(Short parentId) {
+	public List<SosopdArea> listAreaByParentId(Short parentId) {
 		SosopdAreaExample example = new SosopdAreaExample();
 		if(null == parentId) {
 			example.createCriteria().andParentIdEqualTo((short)0);
@@ -28,7 +28,7 @@ public class AreaServiceImpl implements AreaService {
 	}
 
 	@Override
-	public SosopdArea getAreaByAreaId(Short id) {
+	public SosopdArea listAreaByAreaId(Short id) {
 
 		return mapper.selectByPrimaryKey(id);
 	}

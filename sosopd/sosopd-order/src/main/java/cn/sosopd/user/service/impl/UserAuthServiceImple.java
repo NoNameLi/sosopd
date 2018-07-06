@@ -26,18 +26,18 @@ public class UserAuthServiceImple implements UserAuthService {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Override
 	@Transactional(rollbackFor = ServiceException.class)
-	public Integer createAccount(SosopdUserAuth account) throws ServiceException {
+	public Integer saveAccount(SosopdUserAuth account) throws ServiceException {
 		Boolean hasAccount = sosopdUserAuthMapper.ishasAccount(account.getAccount());
-		if(null != hasAccount && hasAccount){
+		if (null != hasAccount && hasAccount) {
 			throw new FinalServiceException("账号已存在");
 		}
 		SosopdUser user = new SosopdUser();
 		user.setUserName(account.getAccount());
 		user.setUserPhone(account.getAccount());
-		account.setUserId(userService.createUser(user));
+		account.setUserId(userService.saveUser(user));
 		return sosopdUserAuthMapper.insert(account);
 	}
 
@@ -50,7 +50,7 @@ public class UserAuthServiceImple implements UserAuthService {
 	}
 
 	@Override
-	public SosopdUserAuth selectByPrimaryKey(Integer accountId) throws ServiceException {
+	public SosopdUserAuth getAccountByPrimaryKey(Integer accountId) throws ServiceException {
 
 		return sosopdUserAuthMapper.selectByPrimaryKey(accountId);
 	}
@@ -58,8 +58,7 @@ public class UserAuthServiceImple implements UserAuthService {
 	@Override
 	public SosopdUserAuth checkAccount(String account, String password) {
 		SosopdUserAuth auth = sosopdUserAuthMapper.selectAccountByAccAPass(account, password);
-		return auth ;
+		return auth;
 	}
-	
 
 }

@@ -24,7 +24,7 @@ public class OrderServiceTest {
 		CreateOrderParams orderData = new CreateOrderParams();
 		orderData.setBrand("美的").setCustAddress("广东省深圳市宝安区XCCCCC");
 		try {
-			orderService.createOrder(operator, orderData);
+			orderService.saveOrder(operator, orderData);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

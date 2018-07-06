@@ -23,7 +23,7 @@ public class TaskServiceTest {
 
 		TaskCreateDto taskDto = TaskCreateDto.builder().orderId(1).taskExecDatetime(DateTime.now().toDate()).build();
 		try {
-			System.out.println(taskService.createInitTask(taskDto));
+			System.out.println(taskService.saveOrInitTask(taskDto));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

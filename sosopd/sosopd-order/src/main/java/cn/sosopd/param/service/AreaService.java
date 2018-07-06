@@ -6,7 +6,7 @@ import cn.sosopd.param.entity.SosopdArea;
 
 public interface AreaService {
 
-	List<SosopdArea> getAreaByParentId(Short parentId);
+	List<SosopdArea> listAreaByParentId(Short parentId);
 
-	SosopdArea getAreaByAreaId(Short id);
+	SosopdArea listAreaByAreaId(Short id);
 }

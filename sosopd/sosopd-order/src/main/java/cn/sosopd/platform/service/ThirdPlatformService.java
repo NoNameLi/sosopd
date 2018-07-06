@@ -11,18 +11,18 @@ public interface ThirdPlatformService {
 	/**
 	 * 根据类型查询预设平台
 	 */
-	List<SosopdThirdPlatformExtend> queryPlatformByType(String platformType);
+	List<SosopdThirdPlatformExtend> listPlatformByType(String platformType);
 
 	/**
 	 * 根据参数查询预设平台
 	 */
-	List<SosopdThirdPlatformExtend> queryPlatformByParams(ThirdPlatformQueryParams params);
+	List<SosopdThirdPlatformExtend> listPlatformByParams(ThirdPlatformQueryParams params);
 
 	/**
 	 * 获取预设的平台{id，name} 数据
 	 * 
 	 * @return
 	 */
-	List<CommonParamDto> getPlatform();
+	List<CommonParamDto> listPlatform();
 
 }

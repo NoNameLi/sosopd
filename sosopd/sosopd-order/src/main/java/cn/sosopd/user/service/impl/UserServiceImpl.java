@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 	private SosopdUserMapper sosopdUserMapper;
 
 	@Override
-	public SosopdUser queryUserById(Integer userId) throws ServiceException {
+	public SosopdUser getUserById(Integer userId) throws ServiceException {
 		if (null == userId) {
 			return null;
 		}
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Integer createUser(SosopdUser user) throws ServiceException {
+	public Integer saveUser(SosopdUser user) throws ServiceException {
 		BeanValidator.validate(user);
 		return sosopdUserMapper.insert(user);
 	}
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<SosopdUser> selectUserByParams() throws ServiceException {
+	public List<SosopdUser> listUserByParams() throws ServiceException {
 
 		return null;
 	}

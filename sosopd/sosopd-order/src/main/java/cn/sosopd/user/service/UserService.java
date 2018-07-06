@@ -14,12 +14,12 @@ import cn.sosopd.user.param.UserDto;
  */
 public interface UserService {
 
-	Integer createUser(SosopdUser user) throws ServiceException;
+	Integer saveUser(SosopdUser user) throws ServiceException;
 
 	Boolean updateUserInfo(int userId, UserDto user) throws ServiceException;
 
-	SosopdUser queryUserById(Integer userId) throws ServiceException;
+	SosopdUser getUserById(Integer userId) throws ServiceException;
 
-	List<SosopdUser> selectUserByParams() throws ServiceException;
+	List<SosopdUser> listUserByParams() throws ServiceException;
 
 }

@@ -30,19 +30,19 @@ public class SosopdOrderServiceImpl implements SosopdOrderService {
 	private OrderDao orderDao;
 
 	@Override
-	public List<SosopdOrderExtend> queryOrderByParams(SosopdUser operator, QueryOrderParams params) {
+	public List<SosopdOrderExtend> listOrderByParams(SosopdUser operator, QueryOrderParams params) {
 
 		return orderDao.queryOrderByParams(operator, params);
 	}
 
 	@Override
-	public PageInfo<?> queryOrdersByPage(SosopdUser operator, PageParams page, QueryOrderParams params) {
+	public PageInfo<?> listOrdersByPage(SosopdUser operator, PageParams page, QueryOrderParams params) {
 		PageHelper.startPage(page.getCurrentPage(), page.getPageSize());
 		List<SosopdOrderExtend> list = orderDao.queryOrderByParams(operator, params);
 		return new PageInfo<>(list);
 	}
 
-	public void createOrder(SosopdUser operator, CreateOrderParams orderData) throws ServiceException {
+	public void saveOrder(SosopdUser operator, CreateOrderParams orderData) throws ServiceException {
 
 		SosopdOrder order = new SosopdOrder();
 		BeanUtils.copyProperties(orderData, order);
@@ -62,7 +62,7 @@ public class SosopdOrderServiceImpl implements SosopdOrderService {
 
 	@Override
 	public void deleteOrder(SosopdUser operator, Integer orderId) throws ServiceException {
-		if (null == this.queryOrderBasicById(operator, orderId)) {
+		if (null == this.getOrderBasicById(operator, orderId)) {
 			throw new ServiceException(MessageFormat.format("用户：{0},工单：{1} 不存在", operator.getUserId(), orderId));
 		}
 		SosopdOrder order = new SosopdOrder();
@@ -74,7 +74,7 @@ public class SosopdOrderServiceImpl implements SosopdOrderService {
 	}
 
 	@Override
-	public SosopdOrder queryOrderBasicById(SosopdUser operator, Integer orderId) throws ServiceException {
+	public SosopdOrder getOrderBasicById(SosopdUser operator, Integer orderId) throws ServiceException {
 
 		return orderDao.queryOrderById(operator, orderId);
 	}

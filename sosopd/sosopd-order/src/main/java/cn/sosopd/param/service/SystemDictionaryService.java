@@ -10,31 +10,31 @@ public interface SystemDictionaryService {
 	/**
 	 * 查询工单状态数据
 	 */
-	List<SosopdSystemDictionary> getOrderStatusParams();
+	List<SosopdSystemDictionary> listOrderStatusParams();
 	
 	/**
 	 * 查询工单服务类型
 	 */
-	List<SosopdSystemDictionary> getOrderServiceTypeParams();
+	List<SosopdSystemDictionary> listOrderServiceTypeParams();
 	
 	/**
 	 * 查询工单服务类型 简要数据
 	 */
-	List<CommonParamDto> getOrderServiceTypeBriefly();
+	List<CommonParamDto> listOrderServiceTypeBriefly();
 	
 	/**
 	 * 查询工单质保类型
 	 */
-	List<SosopdSystemDictionary> getOrderGuaranteeParams();
+	List<SosopdSystemDictionary> listOrderGuaranteeParams();
 	
 	/**
 	 * 查询平台类型数据
 	 */
-	List<SosopdSystemDictionary> getPlatformTypeParams();
+	List<SosopdSystemDictionary> listPlatformTypeParams();
 	
 	/**
 	 * 根据数据类型查询系统数据
 	 */
-	List<SosopdSystemDictionary> getDictionaryDataByTypeKey(String typeKey);
+	List<SosopdSystemDictionary> listDictionaryDataByTypeKey(String typeKey);
 }
  

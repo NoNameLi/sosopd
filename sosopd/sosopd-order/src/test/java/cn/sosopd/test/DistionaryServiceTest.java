@@ -25,17 +25,17 @@ public class DistionaryServiceTest {
 	@Test
 	public void queryParams() {
 
-		System.out.println(JSON.toJSONString(dictionaryService.getOrderGuaranteeParams(), true));
-		System.out.println(JSON.toJSONString(dictionaryService.getOrderServiceTypeParams(),true));
-		System.out.println(JSON.toJSONString(dictionaryService.getOrderStatusParams(),true));
+		System.out.println(JSON.toJSONString(dictionaryService.listOrderGuaranteeParams(), true));
+		System.out.println(JSON.toJSONString(dictionaryService.listOrderServiceTypeParams(),true));
+		System.out.println(JSON.toJSONString(dictionaryService.listOrderStatusParams(),true));
 	}
 	
 	@Test
-	public void getArea() {
+	public void listArea() {
 		
-		System.out.println(Json.toJson(areaService.getAreaByParentId(null).size(), JsonFormat.nice()));
-		System.out.println(Json.toJson(areaService.getAreaByParentId((short)0).size(), JsonFormat.nice()));
-		System.out.println(Json.toJson(areaService.getAreaByParentId((short)17).size(), JsonFormat.nice()));
+		System.out.println(Json.toJson(areaService.listAreaByParentId(null).size(), JsonFormat.nice()));
+		System.out.println(Json.toJson(areaService.listAreaByParentId((short)0).size(), JsonFormat.nice()));
+		System.out.println(Json.toJson(areaService.listAreaByParentId((short)17).size(), JsonFormat.nice()));
 		
 	}
 	

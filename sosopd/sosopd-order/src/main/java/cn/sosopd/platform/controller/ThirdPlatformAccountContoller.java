@@ -25,7 +25,7 @@ public class ThirdPlatformAccountContoller {
 	public Response getUserPlatformAccount() throws ServiceException {
 
 		List<SosopdThirdPlatformAccountExtend> list = thirdPlatformAccountService
-				.queryUserPlatformAccount(UserTokenLocal.getCurrentUser());
+				.listUserPlatformAccount(UserTokenLocal.getCurrentUser());
 
 		return new Response().success(list);
 	}
@@ -34,7 +34,7 @@ public class ThirdPlatformAccountContoller {
 	@ResponseBody
 	public Response createUserPlatformAccount(ThirdPlatformCreateParams params) throws ServiceException {
 
-		thirdPlatformAccountService.addUserThirdPlatformAccount(UserTokenLocal.getCurrentUser(), params);
+		thirdPlatformAccountService.saveUserThirdPlatformAccount(UserTokenLocal.getCurrentUser(), params);
 		return new Response().success();
 	}
 

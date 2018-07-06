@@ -36,7 +36,7 @@ public class OrderController {
 	public JQueryDataTableResponseData queryOrderByPage(HttpServletRequest request, QueryOrderParams params) {
 		System.out.println(Json.toJson(params, JsonFormat.nice()));
 		JQueryDataTableParam jqp = JQueryDataTableParam.buildParams(request);
-		PageInfo<?> pageInfo = orderService.queryOrdersByPage(UserTokenLocal.getCurrentUser(), jqp.convter(), params);
+		PageInfo<?> pageInfo = orderService.listOrdersByPage(UserTokenLocal.getCurrentUser(), jqp.convter(), params);
 		return JQueryDataTableResponseData.buildResponseDataFromPageInfo(jqp, pageInfo);
 	}
 
@@ -55,7 +55,7 @@ public class OrderController {
 	@ResponseBody
 	public Response addOrderByUser(CreateOrderParams orderData) throws ServiceException {
 
-		orderService.createOrder(UserTokenLocal.getCurrentUser(), orderData);
+		orderService.saveOrder(UserTokenLocal.getCurrentUser(), orderData);
 		return new Response().success();
 
 	}

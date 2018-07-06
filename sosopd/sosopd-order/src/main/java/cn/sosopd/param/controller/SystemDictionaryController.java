@@ -29,21 +29,21 @@ public class SystemDictionaryController {
 	@RequestMapping("/getPlatformType.json")
 	@ResponseBody
 	public Response getPlatformType() {
-		List<SosopdSystemDictionary> list = systemDictionaryService.getPlatformTypeParams();
+		List<SosopdSystemDictionary> list = systemDictionaryService.listPlatformTypeParams();
 		return new Response().success(list);
 	}
 
 	@RequestMapping("/getGuaranteeType.json")
 	@ResponseBody
 	public Response getGuaranteeType() {
-		List<SosopdSystemDictionary> list = systemDictionaryService.getOrderGuaranteeParams();
+		List<SosopdSystemDictionary> list = systemDictionaryService.listOrderGuaranteeParams();
 		return new Response().success(list);
 	}
 
 	@RequestMapping("/getOrderTypeBriefly.json")
 	@ResponseBody
 	public Response getOrderTypeBriefly() {
-		return new Response().success(systemDictionaryService.getOrderServiceTypeBriefly());
+		return new Response().success(systemDictionaryService.listOrderServiceTypeBriefly());
 	}
 
 	// orderTypeCondition:[{"name":"全部","value":""},{"name":"维修","value":"01"},{"name":"安装","value":"02"}],
