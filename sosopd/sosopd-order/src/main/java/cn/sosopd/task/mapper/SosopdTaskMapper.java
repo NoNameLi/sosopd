@@ -18,6 +18,8 @@ public interface SosopdTaskMapper {
 
     int insertUpdate(SosopdTask record);
 
+    List<Integer> insertUpdate(List<SosopdTask> record);
+
     List<SosopdTask> selectByExample(SosopdTaskExample example);
 
     SosopdTask selectByPrimaryKey(Integer orderId);

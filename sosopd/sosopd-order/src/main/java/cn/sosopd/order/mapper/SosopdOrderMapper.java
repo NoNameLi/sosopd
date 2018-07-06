@@ -18,6 +18,8 @@ public interface SosopdOrderMapper {
 
     SosopdOrder selectByPrimaryKey(@Param("userId") Integer userId, @Param("orderId") Integer orderId);
 
+    List<SosopdOrder> selectByPrimaryKeys(@Param("userId") Integer userId, @Param("orderIds") Integer... orderIds);
+
     int updateByPrimaryKeySelective(SosopdOrder record);
 
     int updateByPrimaryKey(SosopdOrder record);

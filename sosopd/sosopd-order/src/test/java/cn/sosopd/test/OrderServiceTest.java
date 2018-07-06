@@ -19,6 +19,7 @@ public class OrderServiceTest {
 	@Autowired
 	private SosopdOrderService orderService;
 
+	@Test
 	public void testAddOrder() {
 		SosopdUser operator = new SosopdUser().setUserId(2);
 		CreateOrderParams orderData = new CreateOrderParams();

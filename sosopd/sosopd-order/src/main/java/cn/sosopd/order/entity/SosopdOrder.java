@@ -3,8 +3,10 @@ package cn.sosopd.order.entity;
 import java.util.Date;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
+@Accessors(chain = true)
 public class SosopdOrder {
     /**
      * 工单ID

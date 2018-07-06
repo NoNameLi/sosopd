@@ -29,54 +29,57 @@ import cn.sosopd.user.entity.SosopdUser;
 @ContextConfiguration(locations = { "/spring/applicationContext-all.xml" })
 public class ThirdPlatfromTest {
 
-	@Autowired
-	private ThirdPlatformService thirdPlatformService;
+    @Autowired
+    private ThirdPlatformService thirdPlatformService;
 
-	@Autowired
-	private ThirdPlatformAccountService thirdPlatformAccountService;
+    @Autowired
+    private ThirdPlatformAccountService thirdPlatformAccountService;
 
-	@Test
-	public void testPresetPlatform() {
-		ThirdPlatformQueryParams params = ThirdPlatformQueryParams.builder().presetStatus(PlatformPresetEnum.SHOW.key)
-				.build();
-		List<SosopdThirdPlatformExtend> list = thirdPlatformService.listPlatformByParams(params);
-		System.out.println(JSON.toJSONString(list, true));
-	}
+    @Test
+    public void testPresetPlatform() {
+        ThirdPlatformQueryParams params = ThirdPlatformQueryParams.builder().presetStatus(PlatformPresetEnum.SHOW.key)
+                .build();
+        List<SosopdThirdPlatformExtend> list = thirdPlatformService.listPlatformByParams(params);
+        System.out.println(JSON.toJSONString(list, true));
+    }
 
-	@Test
-	public void testlistByType() {
-		try {
-			System.out
-					.println(JSON.toJSONString(thirdPlatformService.listPlatformByType("household_electrical"), true));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    @Test
+    public void testlistByType() {
+        try {
+            System.out
+                    .println(JSON.toJSONString(thirdPlatformService.listPlatformByType("household_electrical"), true));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Test
-	public void testlistPlatformAccount() {
+    @Test
+    public void testlistPlatformAccount() {
 
-		SosopdUser operator = new SosopdUser().setUserId(2);
-		try {
-			System.out.println(JSON.toJSONString(thirdPlatformAccountService.listUserPlatformAccount(operator), true));
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
-	}
+        SosopdUser operator = new SosopdUser().setUserId(2);
+        try {
+            System.out.println(
+                    JSON.toJSONString(thirdPlatformAccountService.listUserPlatformAccount(operator).size(), true));
+            System.out.println(
+                    JSON.toJSONString(thirdPlatformAccountService.listUserPlatformAccount(operator, 1, 2, 3), true));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Test
-	public void testAddUserPlatformAccount() {
-		SosopdUser operator = new SosopdUser().setUserId(2);
-		ThirdPlatformCreateParams platformAccount = new ThirdPlatformCreateParams().setAccount("xxxxxxx")
-				.setPassword("yyyyyy").setPlatformId(1);
-		try {
+    @Test
+    public void testAddUserPlatformAccount() {
+        SosopdUser operator = new SosopdUser().setUserId(2);
+        ThirdPlatformCreateParams platformAccount = new ThirdPlatformCreateParams().setAccount("xxxxxxx")
+                .setPassword("yyyyyy").setPlatformId(1);
+        try {
 
-			System.out.println(JSON.toJSONString(
-					thirdPlatformAccountService.saveUserThirdPlatformAccount(operator, platformAccount), true));
+            System.out.println(JSON.toJSONString(
+                    thirdPlatformAccountService.saveUserThirdPlatformAccount(operator, platformAccount), true));
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

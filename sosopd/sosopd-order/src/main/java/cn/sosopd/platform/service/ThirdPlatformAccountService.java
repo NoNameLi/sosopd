@@ -16,7 +16,8 @@ public interface ThirdPlatformAccountService {
      * @return
      * @throws ServiceException
      */
-    List<SosopdThirdPlatformAccountExtend> listUserPlatformAccount(SosopdUser operator) throws ServiceException;
+    List<SosopdThirdPlatformAccountExtend> listUserPlatformAccount(SosopdUser operator, Integer... platformAccountIds)
+            throws ServiceException;
 
     /**
      * 用户新增第三方平台的账号

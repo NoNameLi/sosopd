@@ -42,12 +42,17 @@
 		left join sosopd_system_dictionary sd on sd.key = t.status
 	</sql>
 
-	<select id="selectUserThirdPlarformAccount" resultMap="JoinResultMap" parameterType="java.lang.Integer">
+	<select id="selectUserThirdPlarformAccount" resultMap="JoinResultMap">
 		select
 			<include refid="Join_Column_List" />
 		from 
 			<include refid="Basic_join_From_List" />
 		where t.user_id = #{userId,jdbcType=INTEGER}
+        <if test="accountIds != null ">
+           <foreach collection="accountIds" item="item" open="and t.id in (" separator="," close=")">
+             #{item} 
+           </foreach>
+        </if>
 	</select>
 
 

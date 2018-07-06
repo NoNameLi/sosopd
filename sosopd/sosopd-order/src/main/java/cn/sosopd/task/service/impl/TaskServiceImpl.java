@@ -2,19 +2,16 @@ package cn.sosopd.task.service.impl;
 
 import java.util.List;
 
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.sosopd.common.exception.ServiceException;
-import cn.sosopd.common.util.ObjectConverter;
 import cn.sosopd.common.validator.BeanValidator;
 import cn.sosopd.common.validator.ParamValidator;
+import cn.sosopd.task.dao.TaskDao;
 import cn.sosopd.task.dto.TaskCreateDto;
 import cn.sosopd.task.dto.TaskDto;
-import cn.sosopd.task.entity.SosopdTask;
 import cn.sosopd.task.entity.SosopdTaskExample;
-import cn.sosopd.task.mapper.SosopdTaskMapper;
 import cn.sosopd.task.service.TaskService;
 import cn.sosopd.task.type.TaskStatusEnum;
 import cn.sosopd.task.type.TaskUpdateValidatorGroup;
@@ -23,7 +20,7 @@ import cn.sosopd.task.type.TaskUpdateValidatorGroup;
 public class TaskServiceImpl implements TaskService {
 
     @Autowired
-    private SosopdTaskMapper mapper;
+    private TaskDao taskDao;
 
     @Override
     public Integer saveOrInitTask(TaskCreateDto taskDto) throws ServiceException {
@@ -31,10 +28,7 @@ public class TaskServiceImpl implements TaskService {
         ParamValidator.assertNotNull(taskDto, "更新数据不能为空");
         BeanValidator.validate(taskDto);
 
-        SosopdTask record = ObjectConverter.convert(taskDto, SosopdTask.class);
-        // 补全其他必要数据
-        record.setCreateDatetime(DateTime.now().toDate()).setTaskStatus(TaskStatusEnum.executing.name());
-        return mapper.insertUpdate(record);
+        return taskDao.saveOrInitTask(taskDto);
     }
 
     @Override
@@ -42,17 +36,15 @@ public class TaskServiceImpl implements TaskService {
 
         ParamValidator.assertNotNull(taskDto, "更新数据不能为空");
         BeanValidator.validate(taskDto, TaskUpdateValidatorGroup.class);
-        SosopdTask record = ObjectConverter.convert(taskDto, SosopdTask.class);
-        return mapper.updateByPrimaryKeySelective(record);
+        return taskDao.upateTask(taskDto);
     }
 
     @Override
     public List<TaskDto> listTaskByStatus(TaskStatusEnum taskStatus) {
-
         SosopdTaskExample example = new SosopdTaskExample();
         example.createCriteria().andTaskStatusEqualTo(taskStatus.name());
-        List<SosopdTask> list = mapper.selectByExample(example);
-        return ObjectConverter.convert(list, TaskDto.class);
+
+         return taskDao.listTask(example);
     }
 
 }

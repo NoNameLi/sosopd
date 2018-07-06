@@ -3,6 +3,7 @@ package cn.sosopd.order.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,6 @@ import cn.sosopd.order.entity.SosopdOrderExtend;
 import cn.sosopd.order.mapper.SosopdOrderMapper;
 import cn.sosopd.order.params.QueryOrderParams;
 import cn.sosopd.order.params.UpdateOrderCondition;
-import cn.sosopd.user.entity.SosopdUser;
 
 @Service
 public class OrderDao {
@@ -22,27 +22,45 @@ public class OrderDao {
     @Autowired
     private SosopdOrderMapper sosopdOrderMapper;
 
-    public SosopdOrder getOrderById(SosopdUser operator, int orderId) throws ServiceException {
-        ParamValidator.assertNotNull(operator, "添加工单用户不能为空");
-        return sosopdOrderMapper.selectByPrimaryKey(operator.getUserId(), orderId);
+    public SosopdOrder getOrderById(Integer operator, Integer orderId) throws ServiceException {
+        checkOperator(operator);
+        return sosopdOrderMapper.selectByPrimaryKey(operator, orderId);
     }
 
-    public List<SosopdOrderExtend> listOrderByParams(SosopdUser operator, QueryOrderParams params) {
-        return sosopdOrderMapper.queryOrderByParams(operator.getUserId(), params);
+    public List<SosopdOrder> listorder(Integer operator, Integer... orderIds) throws ServiceException {
+        checkOperator(operator);
+        ParamValidator.assertNotNull(orderIds, "");
+        return sosopdOrderMapper.selectByPrimaryKeys(operator, orderIds);
     }
 
-    public void saveOrder(SosopdUser operator, SosopdOrder order) throws ServiceException {
-        ParamValidator.assertNotNull(operator, "添加工单用户不能为空");
+    public List<SosopdOrderExtend> listOrderByParams(Integer operator, QueryOrderParams params)
+            throws ServiceException {
+        checkOperator(operator);
+        return sosopdOrderMapper.queryOrderByParams(operator, params);
+    }
+
+    public void saveOrder(Integer operator, SosopdOrder order) throws ServiceException {
+        checkOperator(operator);
         ParamValidator.assertNotNull(order, "添加工单工单数据不能为空");
+        order.setUserId(operator);
+        order.setCreateDatetime(DateTime.now().toDate());
         sosopdOrderMapper.insertSelective(order);
     }
 
-    public void updateOrder(SosopdUser operator, SosopdOrder order) throws ServiceException {
-
-        UpdateOrderCondition condition = new UpdateOrderCondition().setOrderId(order.getOrderId())
-                .setUserId(operator.getUserId()).setUpdateDatetime(order.getUpdateDatetime());
+    public void updateOrder(Integer operator, SosopdOrder order) throws ServiceException {
+        checkOperator(operator);
+        UpdateOrderCondition condition = new UpdateOrderCondition().setOrderId(order.getOrderId()).setUserId(operator)
+                .setUpdateDatetime(order.getUpdateDatetime());
         BeanValidator.validate(condition);
         order.setUpdateDatetime(new Date());
         sosopdOrderMapper.updateByParams(condition, order);
+    }
+
+    public void updateOrderBatch(Integer operator, List<SosopdOrder> orders) {
+
+    }
+
+    private void checkOperator(Integer operator) throws ServiceException {
+        ParamValidator.assertNotNull(operator, "查找工单用户不能为空");
     }
 }

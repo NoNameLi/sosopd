@@ -1,17 +1,14 @@
 package cn.sosopd.platform.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.sosopd.common.exception.ServiceException;
 import cn.sosopd.common.validator.ParamValidator;
-import cn.sosopd.platform.entity.SosopdThirdPlatformAccount;
+import cn.sosopd.platform.dao.ThirdPlatformAccountDao;
 import cn.sosopd.platform.entity.SosopdThirdPlatformAccountExtend;
-import cn.sosopd.platform.mapper.SosopdThirdPlatformAccountMapper;
 import cn.sosopd.platform.params.ThirdPlatformCreateParams;
 import cn.sosopd.platform.service.ThirdPlatformAccountService;
 import cn.sosopd.user.entity.SosopdUser;
@@ -20,13 +17,14 @@ import cn.sosopd.user.entity.SosopdUser;
 public class ThirdPlatformAccountServiceImpl implements ThirdPlatformAccountService {
 
     @Autowired
-    private SosopdThirdPlatformAccountMapper thirdPlatformAccountMapper;
+    private ThirdPlatformAccountDao thirdPlatformAccountDao;
 
     @Override
-    public List<SosopdThirdPlatformAccountExtend> listUserPlatformAccount(SosopdUser operator) throws ServiceException {
+    public List<SosopdThirdPlatformAccountExtend> listUserPlatformAccount(SosopdUser operator,
+            Integer... platformAccountIds) throws ServiceException {
         ParamValidator.assertNotNull(operator, "用户不能为空");
 
-        return thirdPlatformAccountMapper.selectUserThirdPlarformAccount(operator.getUserId());
+        return thirdPlatformAccountDao.listUserPlatformAccount(operator.getUserId(), platformAccountIds);
     }
 
     @Override
@@ -34,13 +32,7 @@ public class ThirdPlatformAccountServiceImpl implements ThirdPlatformAccountServ
             throws ServiceException {
         ParamValidator.assertNotNull(operator, "用户不能为空");
         ParamValidator.assertNotNull(platformAccount, "平台账号不能为空");
-
-        SosopdThirdPlatformAccount account = new SosopdThirdPlatformAccount();
-        BeanUtils.copyProperties(platformAccount, account);
-        account.setUserId(operator.getUserId());
-        account.setStatus("reviewing");
-        account.setCreateDatetime(new Date());
-        return thirdPlatformAccountMapper.insertSelective(account);
+        
+        return thirdPlatformAccountDao.saveUserThirdPlatformAccount(operator.getUserId(), platformAccount);
     }
-
 }
