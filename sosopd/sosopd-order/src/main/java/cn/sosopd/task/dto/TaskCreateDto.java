@@ -12,23 +12,21 @@ import lombok.experimental.Accessors;
 @Builder
 @Accessors(chain = true)
 public class TaskCreateDto {
-	/**
-	 * 任务id
-	 */
-	private Integer taskId;
+    /**
+     * 任务id
+     */
+    private Integer taskId;
 
-	/**
-	 * 任务的工单
-	 */
-	@NotNull
-	private Integer orderId;
+    /**
+     * 任务的工单
+     */
+    @NotNull
+    private Integer orderId;
 
-	/**
-	 * 任务执行时间线
-	 */
-	@NotNull
-	private Date taskExecDatetime;
-
-
+    /**
+     * 任务执行时间线
+     */
+    @NotNull
+    private Date taskExecDatetime;
 
 }

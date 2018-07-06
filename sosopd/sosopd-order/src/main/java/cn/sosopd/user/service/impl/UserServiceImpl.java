@@ -17,40 +17,40 @@ import cn.sosopd.user.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private SosopdUserMapper sosopdUserMapper;
+    @Autowired
+    private SosopdUserMapper sosopdUserMapper;
 
-	@Override
-	public SosopdUser getUserById(Integer userId) throws ServiceException {
-		if (null == userId) {
-			return null;
-		}
-		return sosopdUserMapper.selectByPrimaryKey(userId);
-	}
+    @Override
+    public SosopdUser getUserById(Integer userId) throws ServiceException {
+        if (null == userId) {
+            return null;
+        }
+        return sosopdUserMapper.selectByPrimaryKey(userId);
+    }
 
-	@Override
-	public Integer saveUser(SosopdUser user) throws ServiceException {
-		BeanValidator.validate(user);
-		return sosopdUserMapper.insert(user);
-	}
+    @Override
+    public Integer saveUser(SosopdUser user) throws ServiceException {
+        BeanValidator.validate(user);
+        return sosopdUserMapper.insert(user);
+    }
 
-	@Override
-	public Boolean updateUserInfo(int userId, UserDto userInfo) throws ServiceException {
-		SosopdUser sosopdUser = new SosopdUser();
-		BeanUtils.copyProperties(userInfo, sosopdUser);
-		sosopdUser.setUserId(userId);
-		sosopdUser.setUpdateDatetime(DateTime.now().toDate());
+    @Override
+    public Boolean updateUserInfo(int userId, UserDto userInfo) throws ServiceException {
+        SosopdUser sosopdUser = new SosopdUser();
+        BeanUtils.copyProperties(userInfo, sosopdUser);
+        sosopdUser.setUserId(userId);
+        sosopdUser.setUpdateDatetime(DateTime.now().toDate());
 
-		if (sosopdUserMapper.updateByPrimaryKeySelective(sosopdUser) >= 0) {
-			return true;
-		}
-		return false;
-	}
+        if (sosopdUserMapper.updateByPrimaryKeySelective(sosopdUser) >= 0) {
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public List<SosopdUser> listUserByParams() throws ServiceException {
+    @Override
+    public List<SosopdUser> listUserByParams() throws ServiceException {
 
-		return null;
-	}
+        return null;
+    }
 
 }

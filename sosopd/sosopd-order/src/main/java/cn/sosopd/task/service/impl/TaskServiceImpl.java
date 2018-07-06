@@ -22,37 +22,37 @@ import cn.sosopd.task.type.TaskUpdateValidatorGroup;
 @Service
 public class TaskServiceImpl implements TaskService {
 
-	@Autowired
-	private SosopdTaskMapper mapper;
+    @Autowired
+    private SosopdTaskMapper mapper;
 
-	@Override
-	public Integer saveOrInitTask(TaskCreateDto taskDto) throws ServiceException {
+    @Override
+    public Integer saveOrInitTask(TaskCreateDto taskDto) throws ServiceException {
 
-		ParamValidator.assertNotNull(taskDto, "更新数据不能为空");
-		BeanValidator.validate(taskDto);
+        ParamValidator.assertNotNull(taskDto, "更新数据不能为空");
+        BeanValidator.validate(taskDto);
 
-		SosopdTask record = ObjectConverter.convert(taskDto, SosopdTask.class);
-		// 补全其他必要数据
-		record.setCreateDatetime(DateTime.now().toDate()).setTaskStatus(TaskStatusEnum.executing.name());
-		return mapper.insertUpdate(record);
-	}
+        SosopdTask record = ObjectConverter.convert(taskDto, SosopdTask.class);
+        // 补全其他必要数据
+        record.setCreateDatetime(DateTime.now().toDate()).setTaskStatus(TaskStatusEnum.executing.name());
+        return mapper.insertUpdate(record);
+    }
 
-	@Override
-	public Integer upateTask(TaskDto taskDto) throws ServiceException {
+    @Override
+    public Integer upateTask(TaskDto taskDto) throws ServiceException {
 
-		ParamValidator.assertNotNull(taskDto, "更新数据不能为空");
-		BeanValidator.validate(taskDto, TaskUpdateValidatorGroup.class);
-		SosopdTask record = ObjectConverter.convert(taskDto, SosopdTask.class);
-		return mapper.updateByPrimaryKeySelective(record);
-	}
+        ParamValidator.assertNotNull(taskDto, "更新数据不能为空");
+        BeanValidator.validate(taskDto, TaskUpdateValidatorGroup.class);
+        SosopdTask record = ObjectConverter.convert(taskDto, SosopdTask.class);
+        return mapper.updateByPrimaryKeySelective(record);
+    }
 
-	@Override
-	public List<TaskDto> listTaskByStatus(TaskStatusEnum taskStatus) {
+    @Override
+    public List<TaskDto> listTaskByStatus(TaskStatusEnum taskStatus) {
 
-		SosopdTaskExample example = new SosopdTaskExample();
-		example.createCriteria().andTaskStatusEqualTo(taskStatus.name());
-		List<SosopdTask> list = mapper.selectByExample(example);
-		return ObjectConverter.convert(list, TaskDto.class);
-	}
+        SosopdTaskExample example = new SosopdTaskExample();
+        example.createCriteria().andTaskStatusEqualTo(taskStatus.name());
+        List<SosopdTask> list = mapper.selectByExample(example);
+        return ObjectConverter.convert(list, TaskDto.class);
+    }
 
 }

@@ -19,28 +19,28 @@ import cn.sosopd.user.entity.SosopdUser;
 @Service
 public class ThirdPlatformAccountServiceImpl implements ThirdPlatformAccountService {
 
-	@Autowired
-	private SosopdThirdPlatformAccountMapper thirdPlatformAccountMapper;
+    @Autowired
+    private SosopdThirdPlatformAccountMapper thirdPlatformAccountMapper;
 
-	@Override
-	public List<SosopdThirdPlatformAccountExtend> listUserPlatformAccount(SosopdUser operator) throws ServiceException {
-		ParamValidator.assertNotNull(operator, "用户不能为空");
+    @Override
+    public List<SosopdThirdPlatformAccountExtend> listUserPlatformAccount(SosopdUser operator) throws ServiceException {
+        ParamValidator.assertNotNull(operator, "用户不能为空");
 
-		return thirdPlatformAccountMapper.selectUserThirdPlarformAccount(operator.getUserId());
-	}
+        return thirdPlatformAccountMapper.selectUserThirdPlarformAccount(operator.getUserId());
+    }
 
-	@Override
-	public int saveUserThirdPlatformAccount(SosopdUser operator, ThirdPlatformCreateParams platformAccount)
-			throws ServiceException {
-		ParamValidator.assertNotNull(operator, "用户不能为空");
-		ParamValidator.assertNotNull(platformAccount, "平台账号不能为空");
+    @Override
+    public int saveUserThirdPlatformAccount(SosopdUser operator, ThirdPlatformCreateParams platformAccount)
+            throws ServiceException {
+        ParamValidator.assertNotNull(operator, "用户不能为空");
+        ParamValidator.assertNotNull(platformAccount, "平台账号不能为空");
 
-		SosopdThirdPlatformAccount account = new SosopdThirdPlatformAccount();
-		BeanUtils.copyProperties(platformAccount, account);
-		account.setUserId(operator.getUserId());
-		account.setStatus("reviewing");
-		account.setCreateDatetime(new Date());
-		return thirdPlatformAccountMapper.insertSelective(account);
-	}
+        SosopdThirdPlatformAccount account = new SosopdThirdPlatformAccount();
+        BeanUtils.copyProperties(platformAccount, account);
+        account.setUserId(operator.getUserId());
+        account.setStatus("reviewing");
+        account.setCreateDatetime(new Date());
+        return thirdPlatformAccountMapper.insertSelective(account);
+    }
 
 }

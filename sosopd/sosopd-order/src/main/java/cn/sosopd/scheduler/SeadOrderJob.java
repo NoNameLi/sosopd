@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class SeadOrderJob {
 
-	Logger log = LoggerFactory.getLogger(getClass());
+    Logger log = LoggerFactory.getLogger(getClass());
 
-	@Scheduled(cron = "0/2 * * * * ? ")
-	public void execute() {
-		log.info("send order Job run,data" + DateTime.now().toString("yyyy-MM-dd HH:mm:ss"));
-	}
+    @Scheduled(cron = "0/2 * * * * ? ")
+    public void execute() {
+        log.info("send order Job run,data" + DateTime.now().toString("yyyy-MM-dd HH:mm:ss"));
+    }
 
 }

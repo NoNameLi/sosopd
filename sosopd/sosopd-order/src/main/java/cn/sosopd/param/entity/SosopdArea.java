@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class SosopdArea {
-	 /**
-     * 
-     */
+    /**
+    * 
+    */
     private Short id;
 
     /**

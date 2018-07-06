@@ -26,49 +26,49 @@ import cn.sosopd.common.exception.extend.ParamValidationException;
  */
 public class BeanValidator {
 
-	private static final Logger log = LoggerFactory.getLogger(BeanValidator.class);
+    private static final Logger log = LoggerFactory.getLogger(BeanValidator.class);
 
-	private static final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    private static final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 
-	public static <T> void validate(T bean, Class<?>... groups) throws ParamValidationException {
-		if (bean == null) {
-			return;
-		}
-		Validator validator = factory.getValidator();
-		Set<ConstraintViolation<T>> violations = validator.validate(bean, groups);
-		if (violations.size() > 0) {
-			for (ConstraintViolation<T> violation : violations) {
-				log.warn("Bean校验失败，参数名：{}，错误消息：{}", violation.getPropertyPath().toString(), violation.getMessage());
-				throw new ParamValidationException(violation.getMessage(), violation.getPropertyPath().toString());
-			}
-		}
-	}
+    public static <T> void validate(T bean, Class<?>... groups) throws ParamValidationException {
+        if (bean == null) {
+            return;
+        }
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<T>> violations = validator.validate(bean, groups);
+        if (violations.size() > 0) {
+            for (ConstraintViolation<T> violation : violations) {
+                log.warn("Bean校验失败，参数名：{}，错误消息：{}", violation.getPropertyPath().toString(), violation.getMessage());
+                throw new ParamValidationException(violation.getMessage(), violation.getPropertyPath().toString());
+            }
+        }
+    }
 
-	public static <T> void validate(List<T> beans, Class<?>... groups) throws ParamValidationException {
-		if (beans == null || beans.isEmpty()) {
-			return;
-		}
-		for (Object bean : beans) {
-			validate(bean, groups);
-		}
-	}
+    public static <T> void validate(List<T> beans, Class<?>... groups) throws ParamValidationException {
+        if (beans == null || beans.isEmpty()) {
+            return;
+        }
+        for (Object bean : beans) {
+            validate(bean, groups);
+        }
+    }
 
-	public static <T> BeanValidatorResult validateAll(T bean, Class<?>... groups) {
-		BeanValidatorResult result = new BeanValidatorResult();
-		if (bean == null) {
-			return result;
-		}
+    public static <T> BeanValidatorResult validateAll(T bean, Class<?>... groups) {
+        BeanValidatorResult result = new BeanValidatorResult();
+        if (bean == null) {
+            return result;
+        }
 
-		Validator validator = factory.getValidator();
-		Set<ConstraintViolation<T>> violations = validator.validate(bean, groups);
-		if (violations.size() > 0) {
-			for (ConstraintViolation<T> violation : violations) {
-				result.setResult(false);
-				result.addMessage(violation.getPropertyPath().toString(), violation.getMessage());
-			}
-		}
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<T>> violations = validator.validate(bean, groups);
+        if (violations.size() > 0) {
+            for (ConstraintViolation<T> violation : violations) {
+                result.setResult(false);
+                result.addMessage(violation.getPropertyPath().toString(), violation.getMessage());
+            }
+        }
 
-		return result;
-	}
+        return result;
+    }
 
 }

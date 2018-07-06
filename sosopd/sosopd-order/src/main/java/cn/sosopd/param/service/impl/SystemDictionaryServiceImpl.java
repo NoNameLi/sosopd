@@ -15,40 +15,40 @@ import cn.sosopd.param.type.DictionaryBaseTypeEnum;
 @Service
 public class SystemDictionaryServiceImpl implements SystemDictionaryService {
 
-	@Autowired
-	private SosopdSystemDictionaryMapper systemDictionaryMapper;
+    @Autowired
+    private SosopdSystemDictionaryMapper systemDictionaryMapper;
 
-	@Override
-	public List<SosopdSystemDictionary> listOrderStatusParams() {
-		return this.listDictionaryDataByTypeKey(DictionaryBaseTypeEnum.ORDER_STATUS_TYPE.name());
-	}
+    @Override
+    public List<SosopdSystemDictionary> listOrderStatusParams() {
+        return this.listDictionaryDataByTypeKey(DictionaryBaseTypeEnum.ORDER_STATUS_TYPE.name());
+    }
 
-	@Override
-	public List<SosopdSystemDictionary> listOrderServiceTypeParams() {
-		return this.listDictionaryDataByTypeKey(DictionaryBaseTypeEnum.ORDER_SERVICE_TYPE.name());
-	}
+    @Override
+    public List<SosopdSystemDictionary> listOrderServiceTypeParams() {
+        return this.listDictionaryDataByTypeKey(DictionaryBaseTypeEnum.ORDER_SERVICE_TYPE.name());
+    }
 
-	@Override
-	public List<CommonParamDto> listOrderServiceTypeBriefly() {
+    @Override
+    public List<CommonParamDto> listOrderServiceTypeBriefly() {
 
-		List<SosopdSystemDictionary> list = this.listOrderServiceTypeParams();
-		return DictionaryConverter.converCommon(list);
-	}
+        List<SosopdSystemDictionary> list = this.listOrderServiceTypeParams();
+        return DictionaryConverter.converCommon(list);
+    }
 
-	@Override
-	public List<SosopdSystemDictionary> listOrderGuaranteeParams() {
+    @Override
+    public List<SosopdSystemDictionary> listOrderGuaranteeParams() {
 
-		return this.listDictionaryDataByTypeKey(DictionaryBaseTypeEnum.ORDER_GUARANTEE_TYPE.name());
-	}
+        return this.listDictionaryDataByTypeKey(DictionaryBaseTypeEnum.ORDER_GUARANTEE_TYPE.name());
+    }
 
-	@Override
-	public List<SosopdSystemDictionary> listPlatformTypeParams() {
-		return this.listDictionaryDataByTypeKey(DictionaryBaseTypeEnum.PLATFORM_TYPE_TYPE.name());
-	}
+    @Override
+    public List<SosopdSystemDictionary> listPlatformTypeParams() {
+        return this.listDictionaryDataByTypeKey(DictionaryBaseTypeEnum.PLATFORM_TYPE_TYPE.name());
+    }
 
-	@Override
-	public List<SosopdSystemDictionary> listDictionaryDataByTypeKey(String typeKey) {
-		return systemDictionaryMapper.selectByType(typeKey);
-	}
+    @Override
+    public List<SosopdSystemDictionary> listDictionaryDataByTypeKey(String typeKey) {
+        return systemDictionaryMapper.selectByType(typeKey);
+    }
 
 }

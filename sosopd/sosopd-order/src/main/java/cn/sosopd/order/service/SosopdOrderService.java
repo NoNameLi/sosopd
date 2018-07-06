@@ -26,69 +26,69 @@ import cn.sosopd.user.entity.SosopdUser;
  */
 public interface SosopdOrderService {
 
-	/**
-	 * 用户参数查询
-	 * 
-	 * @param operator
-	 * @param params
-	 * @return
-	 */
-	List<SosopdOrderExtend> listOrderByParams(SosopdUser operator, QueryOrderParams params);
+    /**
+     * 用户参数查询
+     * 
+     * @param operator
+     * @param params
+     * @return
+     */
+    List<SosopdOrderExtend> listOrderByParams(SosopdUser operator, QueryOrderParams params);
 
-	/**
-	 * 用户页面分页查询
-	 * 
-	 * @return
-	 */
-	PageInfo<?> listOrdersByPage(SosopdUser operator, PageParams page, QueryOrderParams params);
+    /**
+     * 用户页面分页查询
+     * 
+     * @return
+     */
+    PageInfo<?> listOrdersByPage(SosopdUser operator, PageParams page, QueryOrderParams params);
 
-	/**
-	 * 查询用户工单基本数据
-	 * 
-	 * @param operato
-	 * @param orderId
-	 * @return
-	 * @throws ServiceException
-	 */
-	SosopdOrder getOrderBasicById(SosopdUser operato, Integer orderId) throws ServiceException;
+    /**
+     * 查询用户工单基本数据
+     * 
+     * @param operato
+     * @param orderId
+     * @return
+     * @throws ServiceException
+     */
+    SosopdOrder getOrderBasicById(SosopdUser operato, Integer orderId) throws ServiceException;
 
-	/**
-	 * 用户添加工单基本数据
-	 * 
-	 * @param operator
-	 * @param orderData
-	 * @throws ServiceException
-	 */
-	void saveOrder(SosopdUser operator, CreateOrderParams orderData) throws ServiceException;
+    /**
+     * 用户添加工单基本数据
+     * 
+     * @param operator
+     * @param orderData
+     * @throws ServiceException
+     */
+    void saveOrder(SosopdUser operator, CreateOrderParams orderData) throws ServiceException;
 
-	/**
-	 * 用户逻辑删除工单
-	 * 
-	 * @param operator
-	 * @param orderId
-	 * @throws ServiceException
-	 */
-	void deleteOrder(SosopdUser operator, Integer orderId) throws ServiceException;
+    /**
+     * 用户逻辑删除工单
+     * 
+     * @param operator
+     * @param orderId
+     * @throws ServiceException
+     */
+    void deleteOrder(SosopdUser operator, Integer orderId) throws ServiceException;
 
-	/**
-	 * 发送一批工单到账号
-	 * 
-	 * @param operator
-	 *            操作者
-	 * @param orderIds
-	 *            工单列表
-	 * @param platformAccountId
-	 *            账号id
-	 * @throws ServiceException
-	 *             当前操作者 和 工单拥有者 账号拥有者 不一致时抛出异常
-	 */
-	void sendOrder2Paltform(SosopdUser operator, List<Integer> orderIds, Integer platformAccountId)
-			throws ServiceException;
+    /**
+     * 发送一批工单到账号
+     * 
+     * @param operator
+     *            操作者
+     * @param orderIds
+     *            工单列表
+     * @param platformAccountId
+     *            账号id
+     * @throws ServiceException
+     *             当前操作者 和 工单拥有者 账号拥有者 不一致时抛出异常
+     */
+    void sendOrder2Paltform(SosopdUser operator, List<Integer> orderIds, Integer platformAccountId)
+            throws ServiceException;
 
-	/**
-	 * 用户更新工单2
-	 * 
-	 * @throws ServiceException
-	 */
-	void updateOrder(SosopdUser operato, SosopdOrder order) throws ServiceException;
+    /**
+     * 用户更新工单2
+     * 
+     * @throws ServiceException
+     */
+    void updateOrder(SosopdUser operato, SosopdOrder order) throws ServiceException;
 }

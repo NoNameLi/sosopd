@@ -8,21 +8,21 @@ package cn.sosopd.common.exception;
  */
 public class ServiceRuntimeException extends RuntimeException {
 
-	private static final long serialVersionUID = 3583566093089790852L;
+    private static final long serialVersionUID = 3583566093089790852L;
 
-	public ServiceRuntimeException() {
-		super();
-	}
+    public ServiceRuntimeException() {
+        super();
+    }
 
-	public ServiceRuntimeException(String message) {
-		super(message);
-	}
+    public ServiceRuntimeException(String message) {
+        super(message);
+    }
 
-	public ServiceRuntimeException(Throwable cause) {
-		super(cause);
-	}
+    public ServiceRuntimeException(Throwable cause) {
+        super(cause);
+    }
 
-	public ServiceRuntimeException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public ServiceRuntimeException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

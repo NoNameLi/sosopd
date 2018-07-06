@@ -17,6 +17,6 @@ public interface SosopdThirdPlatformAccountMapper {
     int updateByPrimaryKeySelective(SosopdThirdPlatformAccount record);
 
     int updateByPrimaryKey(SosopdThirdPlatformAccount record);
-    
-	List<SosopdThirdPlatformAccountExtend> selectUserThirdPlarformAccount(int userId);
+
+    List<SosopdThirdPlatformAccountExtend> selectUserThirdPlarformAccount(int userId);
 }

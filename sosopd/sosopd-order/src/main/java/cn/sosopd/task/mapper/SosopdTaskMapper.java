@@ -6,27 +6,27 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface SosopdTaskMapper {
-	int countByExample(SosopdTaskExample example);
+    int countByExample(SosopdTaskExample example);
 
-	int deleteByExample(SosopdTaskExample example);
+    int deleteByExample(SosopdTaskExample example);
 
-	int deleteByPrimaryKey(Integer orderId);
+    int deleteByPrimaryKey(Integer orderId);
 
-	int insert(SosopdTask record);
+    int insert(SosopdTask record);
 
-	int insertSelective(SosopdTask record);
+    int insertSelective(SosopdTask record);
 
-	int insertUpdate(SosopdTask record);
+    int insertUpdate(SosopdTask record);
 
-	List<SosopdTask> selectByExample(SosopdTaskExample example);
+    List<SosopdTask> selectByExample(SosopdTaskExample example);
 
-	SosopdTask selectByPrimaryKey(Integer orderId);
+    SosopdTask selectByPrimaryKey(Integer orderId);
 
-	int updateByExampleSelective(@Param("record") SosopdTask record, @Param("example") SosopdTaskExample example);
+    int updateByExampleSelective(@Param("record") SosopdTask record, @Param("example") SosopdTaskExample example);
 
-	int updateByExample(@Param("record") SosopdTask record, @Param("example") SosopdTaskExample example);
+    int updateByExample(@Param("record") SosopdTask record, @Param("example") SosopdTaskExample example);
 
-	int updateByPrimaryKeySelective(SosopdTask record);
+    int updateByPrimaryKeySelective(SosopdTask record);
 
-	int updateByPrimaryKey(SosopdTask record);
+    int updateByPrimaryKey(SosopdTask record);
 }

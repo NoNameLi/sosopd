@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 @Data
-@Accessors(chain=true)
+@Accessors(chain = true)
 public class SosopdUser {
     /**
      * 用户ID
@@ -18,13 +18,13 @@ public class SosopdUser {
     /**
      * 用户姓名
      */
-    @NotEmpty(message ="用户名不能为空")
+    @NotEmpty(message = "用户名不能为空")
     private String userName;
 
     /**
      * 用户电话
      */
-    @NotEmpty(message="用户电话不能为空")
+    @NotEmpty(message = "用户电话不能为空")
     private String userPhone;
 
     /**

@@ -10,34 +10,34 @@ import cn.sosopd.common.exception.ServiceException;
  */
 public class ParamValidationException extends ServiceException {
 
-	private static final long serialVersionUID = 908272095950629424L;
+    private static final long serialVersionUID = 908272095950629424L;
 
-	private String parameterName;
+    private String parameterName;
 
-	public ParamValidationException(String message) {
-		super(message);
-	}
+    public ParamValidationException(String message) {
+        super(message);
+    }
 
-	public ParamValidationException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public ParamValidationException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public ParamValidationException(String message, String parameterName) {
-		super(message);
-		this.parameterName = parameterName;
-	}
+    public ParamValidationException(String message, String parameterName) {
+        super(message);
+        this.parameterName = parameterName;
+    }
 
-	public ParamValidationException(String message, String parameterName, Throwable cause) {
-		super(message, cause);
-		this.parameterName = parameterName;
-	}
+    public ParamValidationException(String message, String parameterName, Throwable cause) {
+        super(message, cause);
+        this.parameterName = parameterName;
+    }
 
-	public String getParameterName() {
-		return parameterName;
-	}
+    public String getParameterName() {
+        return parameterName;
+    }
 
-	public void setParameterName(String parameterName) {
-		this.parameterName = parameterName;
-	}
+    public void setParameterName(String parameterName) {
+        this.parameterName = parameterName;
+    }
 
 }

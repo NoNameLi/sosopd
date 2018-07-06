@@ -9,12 +9,12 @@ import lombok.Data;
 @Builder
 public class ThirdPlatformQueryParams implements Serializable {
 
-	private static final long serialVersionUID = -5148213053113543629L;
+    private static final long serialVersionUID = -5148213053113543629L;
 
-	private String platformType;
-	
-	private String dockingStatus;
-	
-	private String presetStatus;
-	
+    private String platformType;
+
+    private String dockingStatus;
+
+    private String presetStatus;
+
 }

@@ -19,5 +19,4 @@ public class SosopdSystemDictionaryType {
      */
     private String desc;
 
-   
 }

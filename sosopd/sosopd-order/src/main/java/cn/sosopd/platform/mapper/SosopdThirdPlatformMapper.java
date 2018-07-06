@@ -20,6 +20,6 @@ public interface SosopdThirdPlatformMapper {
     int updateByPrimaryKeySelective(SosopdThirdPlatform record);
 
     int updateByPrimaryKey(SosopdThirdPlatform record);
-    
+
     List<SosopdThirdPlatformExtend> selectByParams(@Param("params") ThirdPlatformQueryParams params);
 }

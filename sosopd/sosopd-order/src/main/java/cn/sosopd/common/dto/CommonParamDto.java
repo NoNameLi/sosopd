@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CommonParamDto implements Serializable {
-	private static final long serialVersionUID = -4504332533411101992L;
+    private static final long serialVersionUID = -4504332533411101992L;
 
-	private String id;
+    private String id;
 
-	private String text;
+    private String text;
 
 }

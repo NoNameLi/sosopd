@@ -83,7 +83,7 @@ public class SosopdAreaExample {
     }
 
     public void setLimitStart(Integer limitStart) {
-        this.limitStart=limitStart;
+        this.limitStart = limitStart;
     }
 
     public Integer getLimitStart() {
@@ -91,7 +91,7 @@ public class SosopdAreaExample {
     }
 
     public void setLimitEnd(Integer limitEnd) {
-        this.limitEnd=limitEnd;
+        this.limitEnd = limitEnd;
     }
 
     public Integer getLimitEnd() {

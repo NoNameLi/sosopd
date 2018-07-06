@@ -9,15 +9,15 @@ import cn.sosopd.task.type.TaskStatusEnum;
 
 public interface TaskService {
 
-	/**
-	 * 创建初始任务
-	 * 
-	 * @throws ServiceException
-	 */
-	Integer saveOrInitTask(TaskCreateDto taskDto) throws ServiceException;
+    /**
+     * 创建初始任务
+     * 
+     * @throws ServiceException
+     */
+    Integer saveOrInitTask(TaskCreateDto taskDto) throws ServiceException;
 
-	Integer upateTask(TaskDto taskDto) throws ServiceException;
+    Integer upateTask(TaskDto taskDto) throws ServiceException;
 
-	List<TaskDto> listTaskByStatus(TaskStatusEnum taskStatus);
+    List<TaskDto> listTaskByStatus(TaskStatusEnum taskStatus);
 
 }

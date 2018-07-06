@@ -8,20 +8,20 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 @Data
-@Accessors(chain=true)
-public class UserDto implements Serializable{
-	private static final long serialVersionUID = 5458176672167924003L;
+@Accessors(chain = true)
+public class UserDto implements Serializable {
+    private static final long serialVersionUID = 5458176672167924003L;
 
-	/**
+    /**
      * 用户姓名
      */
-    @NotEmpty(message ="用户名不能为空")
+    @NotEmpty(message = "用户名不能为空")
     private String userName;
 
     /**
      * 用户电话
      */
-    @NotEmpty(message="用户电话不能为空")
+    @NotEmpty(message = "用户电话不能为空")
     private String userPhone;
 
     /**
@@ -38,5 +38,5 @@ public class UserDto implements Serializable{
      * 
      */
     private String companyName;
-	
+
 }

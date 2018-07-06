@@ -10,21 +10,21 @@ import cn.sosopd.order.params.QueryOrderParams;
 import cn.sosopd.order.params.UpdateOrderCondition;
 
 public interface SosopdOrderMapper {
-	int deleteByPrimaryKey(Integer orderId);
+    int deleteByPrimaryKey(Integer orderId);
 
-	int insert(SosopdOrder record);
+    int insert(SosopdOrder record);
 
-	int insertSelective(SosopdOrder record);
+    int insertSelective(SosopdOrder record);
 
-	SosopdOrder selectByPrimaryKey(@Param("userId") Integer userId, @Param("orderId") Integer orderId);
+    SosopdOrder selectByPrimaryKey(@Param("userId") Integer userId, @Param("orderId") Integer orderId);
 
-	int updateByPrimaryKeySelective(SosopdOrder record);
+    int updateByPrimaryKeySelective(SosopdOrder record);
 
-	int updateByPrimaryKey(SosopdOrder record);
+    int updateByPrimaryKey(SosopdOrder record);
 
-	List<SosopdOrderExtend> queryOrderByParams(@Param("userId") Integer userId,
-			@Param("params") QueryOrderParams params);
+    List<SosopdOrderExtend> queryOrderByParams(@Param("userId") Integer userId,
+            @Param("params") QueryOrderParams params);
 
-	int updateByParams(@Param("condition") UpdateOrderCondition condition, @Param("order") SosopdOrder record);
+    int updateByParams(@Param("condition") UpdateOrderCondition condition, @Param("order") SosopdOrder record);
 
 }

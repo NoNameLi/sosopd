@@ -13,24 +13,24 @@ import cn.sosopd.param.service.AreaService;
 @Service
 public class AreaServiceImpl implements AreaService {
 
-	@Autowired
-	SosopdAreaMapper mapper;
+    @Autowired
+    SosopdAreaMapper mapper;
 
-	@Override
-	public List<SosopdArea> listAreaByParentId(Short parentId) {
-		SosopdAreaExample example = new SosopdAreaExample();
-		if(null == parentId) {
-			example.createCriteria().andParentIdEqualTo((short)0);
-		}else {
-			example.createCriteria().andParentIdEqualTo(parentId);
-		}
-		return mapper.selectByExample(example);
-	}
+    @Override
+    public List<SosopdArea> listAreaByParentId(Short parentId) {
+        SosopdAreaExample example = new SosopdAreaExample();
+        if (null == parentId) {
+            example.createCriteria().andParentIdEqualTo((short) 0);
+        } else {
+            example.createCriteria().andParentIdEqualTo(parentId);
+        }
+        return mapper.selectByExample(example);
+    }
 
-	@Override
-	public SosopdArea listAreaByAreaId(Short id) {
+    @Override
+    public SosopdArea listAreaByAreaId(Short id) {
 
-		return mapper.selectByPrimaryKey(id);
-	}
+        return mapper.selectByPrimaryKey(id);
+    }
 
 }

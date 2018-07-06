@@ -13,28 +13,42 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CorsFilter implements Filter {
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-	}
+    private static final String ALLOW_ORIGIN_HEADER = "Access-Control-Allow-Origin";
+    private static final String ALLOW_ORIGIN_VALUE = "*";
 
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
-		HttpServletRequest hrequest = (HttpServletRequest) request;
-		HttpServletResponse hresponse = (HttpServletResponse) response;
+    private static final String ALLOW_HEADERS_HEADER = "Access-Control-Allow-Headers";
+    private static final String ALLOW_HEADERS_VALUE = "origin, content-type, accept, authorization, x-requested-with";
 
-		hresponse.addHeader("Access-Control-Allow-Origin", "*");
-		hresponse.addHeader("Access-Control-Allow-Headers",
-				"origin, content-type, accept, authorization, x-requested-with");
-		hresponse.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-		hresponse.addHeader("Access-Control-Max-Age", "1209600");
-		hresponse.addHeader("Access-Control-Allow-Credentials", "true");
+    private static final String ALLOW_METHODS_HEADER = "Access-Control-Allow-Methods";
+    private static final String ALLOW_METHODS_VALUE = "GET, POST, PUT, DELETE, OPTIONS, HEAD";
 
-		chain.doFilter(hrequest, hresponse);
-	}
+    private static final String ALLOW_CREDENTIALS_HEADER = "Access-Control-Allow-Credentials";
+    private static final String ALLOW_CREDENTIALS_VALUE = "true";
 
-	@Override
-	public void destroy() {
-	}
+    private static final String MAX_AGE_HEADER = "Access-Control-Max-Age";
+    private static final String MAX_AGE_VALUE = "1209600";
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        HttpServletRequest hrequest = (HttpServletRequest) request;
+        HttpServletResponse hresponse = (HttpServletResponse) response;
+
+        hresponse.addHeader(ALLOW_ORIGIN_HEADER, ALLOW_ORIGIN_VALUE);
+        hresponse.addHeader(ALLOW_HEADERS_HEADER, ALLOW_HEADERS_VALUE);
+        hresponse.addHeader(ALLOW_METHODS_HEADER, ALLOW_METHODS_VALUE);
+        hresponse.addHeader(MAX_AGE_HEADER, MAX_AGE_VALUE);
+        hresponse.addHeader(ALLOW_CREDENTIALS_HEADER, ALLOW_CREDENTIALS_VALUE);
+
+        chain.doFilter(hrequest, hresponse);
+    }
+
+    @Override
+    public void destroy() {
+    }
 
 }

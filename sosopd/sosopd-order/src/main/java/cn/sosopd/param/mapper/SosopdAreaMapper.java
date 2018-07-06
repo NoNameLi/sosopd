@@ -8,7 +8,7 @@ import cn.sosopd.param.entity.SosopdArea;
 import cn.sosopd.param.entity.SosopdAreaExample;
 
 public interface SosopdAreaMapper {
-	
+
     int countByExample(SosopdAreaExample example);
 
     int deleteByExample(SosopdAreaExample example);
@@ -20,7 +20,7 @@ public interface SosopdAreaMapper {
     int insertSelective(SosopdArea record);
 
     List<SosopdArea> selectByParentId(Short parentId);
-    
+
     List<SosopdArea> selectByExample(SosopdAreaExample example);
 
     SosopdArea selectByPrimaryKey(Short id);
@@ -32,5 +32,5 @@ public interface SosopdAreaMapper {
     int updateByPrimaryKeySelective(SosopdArea record);
 
     int updateByPrimaryKey(SosopdArea record);
-    
+
 }

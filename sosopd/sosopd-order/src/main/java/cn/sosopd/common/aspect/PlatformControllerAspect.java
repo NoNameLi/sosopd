@@ -25,7 +25,7 @@ public class PlatformControllerAspect {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		// 注册日期类型绑定处理器：对于需要转换为Date类型的属性，使用DatePropertyEditor进行处理
-		binder.registerCustomEditor(Date.class, new MyDatePropertyEditor());
-	}
+        binder.registerCustomEditor(Date.class, new MyDatePropertyEditor());
+    }
 
 }

@@ -8,13 +8,13 @@ package cn.sosopd.common.exception;
  */
 public class ServiceException extends Exception {
 
-	private static final long serialVersionUID = 4560445649071723771L;
+    private static final long serialVersionUID = 4560445649071723771L;
 
-	public ServiceException(String message) {
-		super(message);
-	}
+    public ServiceException(String message) {
+        super(message);
+    }
 
-	public ServiceException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public ServiceException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

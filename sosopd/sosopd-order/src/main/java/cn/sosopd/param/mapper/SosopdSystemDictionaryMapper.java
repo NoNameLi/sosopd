@@ -7,17 +7,17 @@ import org.apache.ibatis.annotations.Param;
 import cn.sosopd.param.entity.SosopdSystemDictionary;
 
 public interface SosopdSystemDictionaryMapper {
-	int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer id);
 
-	int insert(SosopdSystemDictionary record);
+    int insert(SosopdSystemDictionary record);
 
-	int insertSelective(SosopdSystemDictionary record);
+    int insertSelective(SosopdSystemDictionary record);
 
-	SosopdSystemDictionary selectByPrimaryKey(Integer id);
+    SosopdSystemDictionary selectByPrimaryKey(Integer id);
 
-	int updateByPrimaryKeySelective(SosopdSystemDictionary record);
+    int updateByPrimaryKeySelective(SosopdSystemDictionary record);
 
-	int updateByPrimaryKey(SosopdSystemDictionary record);
+    int updateByPrimaryKey(SosopdSystemDictionary record);
 
-	List<SosopdSystemDictionary> selectByType(@Param("typeKey") String typeKey);
+    List<SosopdSystemDictionary> selectByType(@Param("typeKey") String typeKey);
 }

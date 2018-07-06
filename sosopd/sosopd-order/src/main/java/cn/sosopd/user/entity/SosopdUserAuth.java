@@ -10,7 +10,7 @@ public class SosopdUserAuth {
      * 登录账号ID
      */
     private Integer id;
-    
+
     /**
      * 用户ID
      */

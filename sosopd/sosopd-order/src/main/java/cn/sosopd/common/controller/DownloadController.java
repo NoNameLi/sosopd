@@ -20,19 +20,19 @@ import cn.sosopd.common.helper.DownloadHelper;
 @RequestMapping("/common/download")
 public class DownloadController {
 
-	/**
-	 * 公共文件下载方法
-	 *
-	 * @param relativeFilePath
-	 *            文件的相对路径， UploadManager的transferFile或saveFile方法的返回值即为文件的相对路径
-	 * @param downloadFileName
-	 *            下载文件的别名，如果指定则下载文件使用这个名字，如果不指定则使用上传文件原来的文件名
-	 * @return
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<byte[]> downloadAttachment(@RequestParam("filepath") String relativeFilePath,
-			@RequestParam(value = "filename", required = false) String downloadFileName, HttpServletRequest request) {
-		return DownloadHelper.downloadFile(relativeFilePath, downloadFileName, request);
-	}
+    /**
+     * 公共文件下载方法
+     *
+     * @param relativeFilePath
+     *            文件的相对路径， UploadManager的transferFile或saveFile方法的返回值即为文件的相对路径
+     * @param downloadFileName
+     *            下载文件的别名，如果指定则下载文件使用这个名字，如果不指定则使用上传文件原来的文件名
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<byte[]> downloadAttachment(@RequestParam("filepath") String relativeFilePath,
+            @RequestParam(value = "filename", required = false) String downloadFileName, HttpServletRequest request) {
+        return DownloadHelper.downloadFile(relativeFilePath, downloadFileName, request);
+    }
 
 }

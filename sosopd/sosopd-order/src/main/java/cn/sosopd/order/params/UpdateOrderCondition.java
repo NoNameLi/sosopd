@@ -19,23 +19,23 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class UpdateOrderCondition implements Serializable {
-	private static final long serialVersionUID = 1549472494337443417L;
+    private static final long serialVersionUID = 1549472494337443417L;
 
-	/**
-	 * 工单ID
-	 */
-	@NotNull(message = "更新工单 工单ID不能为空")
-	private Integer orderId;
+    /**
+     * 工单ID
+     */
+    @NotNull(message = "更新工单 工单ID不能为空")
+    private Integer orderId;
 
-	/**
-	 * 工单所属用户ID
-	 */
-	@NotNull(message = "更新工单 操作者不能为空")
-	private Integer userId;
+    /**
+     * 工单所属用户ID
+     */
+    @NotNull(message = "更新工单 操作者不能为空")
+    private Integer userId;
 
-	/**
-	 * 更新时间
-	 */
-	private Date updateDatetime;
+    /**
+     * 更新时间
+     */
+    private Date updateDatetime;
 
 }

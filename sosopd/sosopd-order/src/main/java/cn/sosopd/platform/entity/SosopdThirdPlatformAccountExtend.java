@@ -4,9 +4,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper=true)// 
-public class SosopdThirdPlatformAccountExtend extends SosopdThirdPlatformAccount{
-	
-	private String statusName;
-	
+@EqualsAndHashCode(callSuper = true) //
+public class SosopdThirdPlatformAccountExtend extends SosopdThirdPlatformAccount {
+
+    private String statusName;
+
 }

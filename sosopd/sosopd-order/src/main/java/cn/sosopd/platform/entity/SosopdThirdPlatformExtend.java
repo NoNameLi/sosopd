@@ -4,12 +4,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper=true)// 
+@EqualsAndHashCode(callSuper = true) //
 public class SosopdThirdPlatformExtend extends SosopdThirdPlatform {
-	
-	private String platformTypeName;
-	
-	private String dockingStatusName;
-	
-	private String presetStatusName;
+
+    private String platformTypeName;
+
+    private String dockingStatusName;
+
+    private String presetStatusName;
 }

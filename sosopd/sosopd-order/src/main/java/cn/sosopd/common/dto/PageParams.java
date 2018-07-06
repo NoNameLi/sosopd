@@ -8,9 +8,9 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class PageParams implements Serializable {
-	private static final long serialVersionUID = -3612735054166960475L;
+    private static final long serialVersionUID = -3612735054166960475L;
 
-	private int currentPage;
-	
-	private int pageSize;
+    private int currentPage;
+
+    private int pageSize;
 }

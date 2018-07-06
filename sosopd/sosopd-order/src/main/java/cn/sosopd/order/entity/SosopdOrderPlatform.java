@@ -3,6 +3,7 @@ package cn.sosopd.order.entity;
 import java.util.Date;
 
 import lombok.Data;
+
 @Data
 public class SosopdOrderPlatform {
     /**
