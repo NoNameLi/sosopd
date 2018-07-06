@@ -32,13 +32,13 @@ public class SosopdOrderServiceImpl implements SosopdOrderService {
 	@Override
 	public List<SosopdOrderExtend> listOrderByParams(SosopdUser operator, QueryOrderParams params) {
 
-		return orderDao.queryOrderByParams(operator, params);
+		return orderDao.listOrderByParams(operator, params);
 	}
 
 	@Override
 	public PageInfo<?> listOrdersByPage(SosopdUser operator, PageParams page, QueryOrderParams params) {
 		PageHelper.startPage(page.getCurrentPage(), page.getPageSize());
-		List<SosopdOrderExtend> list = orderDao.queryOrderByParams(operator, params);
+		List<SosopdOrderExtend> list = orderDao.listOrderByParams(operator, params);
 		return new PageInfo<>(list);
 	}
 
@@ -46,7 +46,7 @@ public class SosopdOrderServiceImpl implements SosopdOrderService {
 
 		SosopdOrder order = new SosopdOrder();
 		BeanUtils.copyProperties(orderData, order);
-		orderDao.createOrder(operator, order);
+		orderDao.saveOrder(operator, order);
 
 	}
 
@@ -76,7 +76,7 @@ public class SosopdOrderServiceImpl implements SosopdOrderService {
 	@Override
 	public SosopdOrder getOrderBasicById(SosopdUser operator, Integer orderId) throws ServiceException {
 
-		return orderDao.queryOrderById(operator, orderId);
+		return orderDao.getOrderById(operator, orderId);
 	}
 
 	@Override
