@@ -124,15 +124,16 @@
       #{lastSyncDatetime,jdbcType=TIMESTAMP})
   </insert>
   
-  <insert id="insertUpdate" parameterType="java.util.List" >
+  <insert id="insertUpdateBatch" parameterType="java.util.List" >
     replace into sosopd_task (order_id, task_type, task_exec_datetime, 
       task_status, task_result, create_datetime, 
       last_sync_datetime)
     values 
-    <foreach collection="list" item="item" open="(" separator="),(" close=")"></foreach>
-      #{item.orderId,jdbcType=INTEGER}, #{taskType,jdbcType=VARCHAR}, #{taskExecDatetime,jdbcType=TIMESTAMP}, 
-      #{taskStatus,jdbcType=CHAR}, #{taskResult,jdbcType=VARCHAR}, #{createDatetime,jdbcType=TIMESTAMP}, 
-      #{lastSyncDatetime,jdbcType=TIMESTAMP}
+    <foreach collection="list" item="item" open="(" separator="),(" close=")">
+      #{item.orderId,jdbcType=INTEGER}, #{item.taskType,jdbcType=VARCHAR}, #{item.taskExecDatetime,jdbcType=TIMESTAMP}, 
+      #{item.taskStatus,jdbcType=CHAR}, #{item.taskResult,jdbcType=VARCHAR}, #{item.createDatetime,jdbcType=TIMESTAMP}, 
+      #{item.lastSyncDatetime,jdbcType=TIMESTAMP}
+    </foreach>
   </insert>
   
   <insert id="insertSelective" parameterType="cn.sosopd.task.entity.SosopdTask" >

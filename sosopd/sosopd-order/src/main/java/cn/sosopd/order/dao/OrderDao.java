@@ -53,11 +53,14 @@ public class OrderDao {
                 .setUpdateDatetime(order.getUpdateDatetime());
         BeanValidator.validate(condition);
         order.setUpdateDatetime(new Date());
-        sosopdOrderMapper.updateByParams(condition, order);
+        sosopdOrderMapper.updateByRowLock(condition, order);
     }
 
     public void updateOrderBatch(Integer operator, List<SosopdOrder> orders) {
-
+        for (SosopdOrder item : orders) {
+            item.setUserId(operator);
+        }
+        sosopdOrderMapper.updateBatch(orders);
     }
 
     private void checkOperator(Integer operator) throws ServiceException {

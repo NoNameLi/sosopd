@@ -148,7 +148,7 @@
 	</if>
   </select>
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from 
@@ -158,6 +158,21 @@
     	and t.user_id = #{userId,jdbcType=INTEGER}
     </if>
   </select>
+  
+  <select id="selectByPrimaryKeys" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from 
+    <include refid="Basic_From_List" />
+    where  1=1
+    <foreach collection="orderIds" item="item" open="and t.order_id in (" separator="," close=")">
+        #{item}
+    </foreach>
+    <if test="userId != null">
+        and t.user_id = #{userId,jdbcType=INTEGER}
+    </if>
+  </select>
+  
   
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -315,7 +330,7 @@
     </trim>
   </insert>
   
-  <update id ="updateByParams">
+  <update id ="updateByRowLock">
   	update sosopd_order
     <set >
       <if test="order.userId != null" >
@@ -381,7 +396,79 @@
     </set>
     where order_id = #{condition.orderId,jdbcType=INTEGER}
     AND user_id = #{condition.userId,jdbcType=INTEGER}
-  	
+    <if test="condition.updateDatetime != null">
+        and update_datetime= #{condition.updateDatetime,jdbcType=TIMESTAMP}
+    </if>
+  </update>
+  
+  <update id ="updateBatch">
+    <foreach collection="orders" item="order" separator=";" >
+        update sosopd_order
+	    <set >
+	      <if test="order.userId != null" >
+	        user_id = #{order.userId,jdbcType=INTEGER},
+	      </if>
+	      <if test="order.platformAccountId != null" >
+	        platform_account_id = #{order.platformAccountId,jdbcType=INTEGER},
+	      </if>
+	      <if test="order.orderStatus != null" >
+	        order_status = #{order.orderStatus,jdbcType=VARCHAR},
+	      </if>
+	      <if test="order.custName != null" >
+	        cust_name = #{order.custName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="order.custPhone != null" >
+	        cust_phone = #{order.custPhone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="order.custProvince != null" >
+	        cust_province = #{order.custProvince,jdbcType=INTEGER},
+	      </if>
+	      <if test="order.custCity != null" >
+	        cust_city = #{order.custCity,jdbcType=INTEGER},
+	      </if>
+	      <if test="order.custCounty != null" >
+	        cust_county = #{order.custCounty,jdbcType=INTEGER},
+	      </if>
+	      <if test="order.custAddress != null" >
+	        cust_address = #{order.custAddress,jdbcType=VARCHAR},
+	      </if>
+	      <if test="order.brand != null" >
+	        brand = #{order.brand,jdbcType=VARCHAR},
+	      </if>
+	      <if test="order.product != null" >
+	        product = #{order.product,jdbcType=VARCHAR},
+	      </if>
+	      <if test="order.productModel != null" >
+	        product_model = #{order.productModel,jdbcType=VARCHAR},
+	      </if>
+	      <if test="order.guarantee != null" >
+	        guarantee = #{order.guarantee,jdbcType=VARCHAR},
+	      </if>
+	      <if test="order.productCount != null" >
+	        product_count = #{order.productCount,jdbcType=VARCHAR},
+	      </if>
+	      <if test="order.serviceType != null" >
+	        service_type = #{order.serviceType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="order.orderSource != null" >
+	        order_source = #{order.orderSource,jdbcType=VARCHAR},
+	      </if>
+	      <if test="order.remark != null" >
+	        remark = #{order.remark,jdbcType=VARCHAR},
+	      </if>
+	      <if test="order.createDatetime != null" >
+	        create_datetime = #{order.createDatetime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="order.updateDatetime != null" >
+	        update_datetime = #{order.updateDatetime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="order.deleteFlag != null" >
+	        delete_flag = #{order.deleteFlag,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where order_id = #{order.orderId,jdbcType=INTEGER}
+	    AND user_id = #{order.userId,jdbcType=INTEGER}
+    </foreach>
   </update>
   
   

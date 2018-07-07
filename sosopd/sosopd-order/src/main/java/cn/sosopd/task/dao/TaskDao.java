@@ -31,7 +31,7 @@ public class TaskDao {
         return mapper.insertUpdate(record);
     }
 
-    public List<Integer> saveOrInitTask(List<TaskCreateDto> taskDtos) throws ServiceException {
+    public Integer saveOrInitTask(List<TaskCreateDto> taskDtos) throws ServiceException {
         if (null == taskDtos || taskDtos.isEmpty()) {
             return null;
         }
@@ -40,7 +40,7 @@ public class TaskDao {
         for (SosopdTask task : record) {
             task.setCreateDatetime(now).setTaskStatus(TaskStatusEnum.executing.name());
         }
-        return mapper.insertUpdate(record);
+        return mapper.insertUpdateBatch(record);
     }
 
     public Integer upateTask(TaskDto taskDto) throws ServiceException {

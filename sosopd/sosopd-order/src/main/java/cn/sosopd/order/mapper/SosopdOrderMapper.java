@@ -24,9 +24,11 @@ public interface SosopdOrderMapper {
 
     int updateByPrimaryKey(SosopdOrder record);
 
+    int updateByRowLock(@Param("condition") UpdateOrderCondition condition, @Param("order") SosopdOrder record);
+
+    int updateBatch(@Param("orders") List<SosopdOrder> orders);
+
     List<SosopdOrderExtend> queryOrderByParams(@Param("userId") Integer userId,
             @Param("params") QueryOrderParams params);
-
-    int updateByParams(@Param("condition") UpdateOrderCondition condition, @Param("order") SosopdOrder record);
 
 }

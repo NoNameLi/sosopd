@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.nutz.json.Json;
+import org.nutz.json.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -11,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.alibaba.fastjson.JSON;
 
 import cn.sosopd.common.exception.ServiceException;
+import cn.sosopd.platform.dao.ThirdPlatformAccountDao;
 import cn.sosopd.platform.entity.SosopdThirdPlatformExtend;
 import cn.sosopd.platform.params.ThirdPlatformCreateParams;
 import cn.sosopd.platform.params.ThirdPlatformQueryParams;
@@ -34,6 +37,20 @@ public class ThirdPlatfromTest {
 
     @Autowired
     private ThirdPlatformAccountService thirdPlatformAccountService;
+
+    @Autowired
+    private ThirdPlatformAccountDao thirdPlatformAccountDao;
+
+    @Test
+    public void testDaoList() {
+        try {
+
+            System.out
+                    .println(Json.toJson(thirdPlatformAccountDao.listUserPlatformAccount(2, 1, 2), JsonFormat.nice()));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void testPresetPlatform() {
