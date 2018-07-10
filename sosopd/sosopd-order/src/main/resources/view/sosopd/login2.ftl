@@ -31,7 +31,7 @@
 				<button @click="create()" type="button" class="btn btn-primary"> <i class="fa fa-edit"></i> 注册</button>
 			</div>
 			
-			<div class="form-group m-r-sm" v-show="true == loginMsgShow">
+			<div class="form-group m-r-sm" v-show="loginMsgShow">
 				<label class="control-label m-r-sm p-t-xs text-center">{{loginMsg}}</label>
 			</div>
 			

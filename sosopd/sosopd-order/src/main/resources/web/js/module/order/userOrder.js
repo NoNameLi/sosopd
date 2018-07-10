@@ -330,16 +330,18 @@ var vm = new Vue({
 			});
 		},
 		sendOrder:function(){
-			
-//			layer.open({
-//				title :"派单",
-//				type : 2,
-//				anim : -1,
-//				skin : 'animated fadeInRight',
-//				area : ['60%', '80%'],
-//				shadeClose : true,
-//				content : contextPath+'/sosopd/order/sendOrder.html'
-//			});
+			var orders = this.selectOrder.join(",");
+			console.log(orders);
+			var url = contextPath + "/sosopd/order/sendOrder.html?orderIds=" + orders;
+			layer.open({
+				title :"派单",
+				type : 2,
+				anim : -1,
+				skin : 'animated fadeInRight',
+				area : ['60%', '80%'],
+				shadeClose : true,
+				content : url
+			});
 		},
 		editOrder:function(){
 			

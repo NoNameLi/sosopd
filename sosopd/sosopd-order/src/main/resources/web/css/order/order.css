@@ -3,7 +3,7 @@
  * @author tangqy 2017/08/09
  */
  
- /* ��ֹvue��Ⱦ����ʱ��˸{{ }} */
+ /* 锟斤拷止vue锟斤拷染锟斤拷锟斤拷时锟斤拷烁{{ }} */
 [v-cloak] {
 	display: none !important;
 }
@@ -114,7 +114,7 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
 }
 
 
-/* ���ȫ�ֵ�������ʽ */
+/* 锟斤拷锟饺拷值锟斤拷锟斤拷锟斤拷锟绞� */
 #help-sidebar {
 	background-color: #fff;
 	border-left: 1px solid #e7eaec;
@@ -227,22 +227,22 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
 	/* bottom: 10px; */
 }
 .help-list-group .help-group-item .nav-grap.h-complaint {
-	background-image: url("../../imgs/�¼�һ��.png");
+	background-image: url("../../imgs/锟铰硷拷一锟斤拷.png");
 }
 .help-list-group .help-group-item .nav-grap.h-workIndex {
-	background-image: url("../../imgs/�ͻ��ط�.png");
+	background-image: url("../../imgs/锟酵伙拷锟截凤拷.png");
 }
 .help-list-group .help-group-item .nav-grap.h-index_new_business {
-	background-image: url("../../imgs/ֱӪ����.png");
+	background-image: url("../../imgs/直营锟斤拷锟斤拷.png");
 }
 .help-list-group .help-group-item .nav-grap.h-index_evalution {
-	background-image: url("../../imgs/����.png");
+	background-image: url("../../imgs/锟斤拷锟斤拷.png");
 }
 .help-list-group .help-group-item .nav-grap.h-authenticate {
-	background-image: url("../../imgs/������.png");
+	background-image: url("../../imgs/锟斤拷锟斤拷锟斤拷.png");
 }
 .help-list-group .help-group-item .nav-grap.h-pay {
-	background-image: url("../../imgs/֧������.png");
+	background-image: url("../../imgs/支锟斤拷锟斤拷锟斤拷.png");
 }
 
 .help-list-group .help-group-item .icon {
@@ -308,7 +308,7 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
 }
 
 
-/* ��ߵ�������ʽ */
+/* 锟斤拷叩锟斤拷锟斤拷锟斤拷锟绞� */
 .left-top-nav {
 	height: -moz-calc(100% - 200px);
 	height: -webkit-calc(100% - 200px);
@@ -320,7 +320,7 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
 	 background-color:#fff; 
 	 z-index:9999;
 }
-/** ʡ�Թ������ֵ��Զ��幤���б� */
+/** 省锟皆癸拷锟斤拷锟斤拷锟街碉拷锟皆讹拷锟藉工锟斤拷锟叫憋拷 */
 .custom_page_name_a {
 	overflow: hidden;
 	white-space: nowrap;
@@ -337,4 +337,48 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
 }
 .cancelSelect{
 	z-index: 999999999;
+}
+
+
+
+/* inventoryMgmt Page Styles */
+.tab-card .requisition-card {
+	display: inline-block;
+	width: 240px;
+	height: 90px;
+	vertical-align: top;
+}
+.tab-card .requisition-card .mc {
+	height: 74px;
+}
+.tab-card .requisition-card .mc .item {
+	text-align: left;
+	font-size: 13px;
+}
+.tab-card .requisition-card .mc .item-b {
+	font-size: 13px;
+	margin-top: 20px;
+}
+.tab-card .requisition-card .todo {
+	height: 100%;
+	text-align: center;
+	padding: 42px 0;
+	color: #8c8c8c;
+}
+.tab-card .normal-card {
+	margin: 0 10px;
+	cursor: pointer;
+	min-width: 148px;
+	text-align: center;
+	font-weight: 700;
+	color: #323232;
+	background-color: #f5f5f5;
+}
+.tab-card .normal-card.todo {
+	font-weight: 500;
+	color: #8c8c8c;
+	background-color: #fff;
+}
+.tab-card .normal-card.active, .tab-card .normal-card.active:hover {
+	border: 1px solid #1ab394;
 }
