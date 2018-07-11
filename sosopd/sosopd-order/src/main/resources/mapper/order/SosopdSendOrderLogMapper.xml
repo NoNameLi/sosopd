@@ -5,13 +5,13 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="date" property="date" jdbcType="TIMESTAMP" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="platfrom_id" property="platfromId" jdbcType="INTEGER" />
+    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
     <result column="send_order_count" property="sendOrderCount" jdbcType="INTEGER" />
     <result column="send_success_count" property="sendSuccessCount" jdbcType="INTEGER" />
     <result column="send_fail_count" property="sendFailCount" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, date, user_id, platfrom_id, send_order_count, send_success_count, send_fail_count
+    id, date, user_id, platform_id, send_order_count, send_success_count, send_fail_count
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -25,10 +25,10 @@
   </delete>
   <insert id="insert" parameterType="cn.sosopd.order.entity.SosopdSendOrderLog" >
     insert into sosopd_send_order_log (id, date, user_id, 
-      platfrom_id, send_order_count, send_success_count, 
+      platform_id, send_order_count, send_success_count, 
       send_fail_count)
     values (#{id,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, 
-      #{platfromId,jdbcType=INTEGER}, #{sendOrderCount,jdbcType=INTEGER}, #{sendSuccessCount,jdbcType=INTEGER}, 
+      #{platformId,jdbcType=INTEGER}, #{sendOrderCount,jdbcType=INTEGER}, #{sendSuccessCount,jdbcType=INTEGER}, 
       #{sendFailCount,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.sosopd.order.entity.SosopdSendOrderLog" >
@@ -43,8 +43,8 @@
       <if test="userId != null" >
         user_id,
       </if>
-      <if test="platfromId != null" >
-        platfrom_id,
+      <if test="platformId != null" >
+        platform_id,
       </if>
       <if test="sendOrderCount != null" >
         send_order_count,
@@ -66,8 +66,8 @@
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="platfromId != null" >
-        #{platfromId,jdbcType=INTEGER},
+      <if test="platformId != null" >
+        #{platformId,jdbcType=INTEGER},
       </if>
       <if test="sendOrderCount != null" >
         #{sendOrderCount,jdbcType=INTEGER},
@@ -89,8 +89,8 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="platfromId != null" >
-        platfrom_id = #{platfromId,jdbcType=INTEGER},
+      <if test="platformId != null" >
+        platform_id = #{platformId,jdbcType=INTEGER},
       </if>
       <if test="sendOrderCount != null" >
         send_order_count = #{sendOrderCount,jdbcType=INTEGER},
@@ -108,7 +108,7 @@
     update sosopd_send_order_log
     set date = #{date,jdbcType=TIMESTAMP},
       user_id = #{userId,jdbcType=INTEGER},
-      platfrom_id = #{platfromId,jdbcType=INTEGER},
+      platform_id = #{platformId,jdbcType=INTEGER},
       send_order_count = #{sendOrderCount,jdbcType=INTEGER},
       send_success_count = #{sendSuccessCount,jdbcType=INTEGER},
       send_fail_count = #{sendFailCount,jdbcType=INTEGER}

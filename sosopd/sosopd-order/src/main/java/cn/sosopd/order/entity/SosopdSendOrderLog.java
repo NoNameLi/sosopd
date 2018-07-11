@@ -24,7 +24,7 @@ public class SosopdSendOrderLog {
     /**
      * 平台ID
      */
-    private Integer platfromId;
+    private Integer platformId;
 
     /**
      * 用户平台派单总量

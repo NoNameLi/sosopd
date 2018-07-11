@@ -3,7 +3,7 @@
 <mapper namespace="cn.sosopd.platform.mapper.SosopdThirdPlatformMapper">
 	<resultMap id="BaseResultMap" type="cn.sosopd.platform.entity.SosopdThirdPlatform">
 		<id column="platform_id" property="platformId" jdbcType="INTEGER" />
-		<result column="platfrom_name" property="platfromName" jdbcType="VARCHAR" />
+		<result column="platform_name" property="platformName" jdbcType="VARCHAR" />
 		<result column="platform_type" property="platformType" jdbcType="VARCHAR" />
 		<result column="docking_status" property="dockingStatus" jdbcType="VARCHAR" />
 		<result column="login_web_site" property="loginWebSite" jdbcType="VARCHAR" />
@@ -13,14 +13,14 @@
 	</resultMap>
 
 	<resultMap id="JoinResultMap" type="cn.sosopd.platform.entity.SosopdThirdPlatformExtend" extends="BaseResultMap">
-		<result column="platfrom_type_name" property="platfromTypeName" jdbcType="VARCHAR" />
+		<result column="platform_type_name" property="platformTypeName" jdbcType="VARCHAR" />
 		<result column="docking_status_name" property="dockingStatusName" jdbcType="VARCHAR" />
 		<result column="preset_status_name" property="presetStatusName" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
 		t.platform_id 			platform_id,
-		t.platfrom_name			platfrom_name,
+		t.platform_name			platform_name,
 		t.platform_type			platform_type,
 		t.docking_status		docking_status,
 		t.login_web_site		login_web_site,
@@ -91,11 +91,11 @@
 		where platform_id = #{platformId,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="cn.sosopd.platform.entity.SosopdThirdPlatform">
-		insert into sosopd_third_platform (platform_id, platfrom_name,
+		insert into sosopd_third_platform (platform_id, platform_name,
 		platform_type,
 		docking_status, login_web_site, preset_status,
 		preset_sort, official_web_site)
-		values (#{platformId,jdbcType=INTEGER}, #{platfromName,jdbcType=VARCHAR},
+		values (#{platformId,jdbcType=INTEGER}, #{platformName,jdbcType=VARCHAR},
 		#{platformType,jdbcType=VARCHAR},
 		#{dockingStatus,jdbcType=VARCHAR}, #{loginWebSite,jdbcType=VARCHAR}, #{presetStatus,jdbcType=VARCHAR},
 		#{presetSort,jdbcType=INTEGER}, #{officialWebSite,jdbcType=VARCHAR})
@@ -106,8 +106,8 @@
 			<if test="platformId != null">
 				platform_id,
 			</if>
-			<if test="platfromName != null">
-				platfrom_name,
+			<if test="platformName != null">
+				platform_name,
 			</if>
 			<if test="platformType != null">
 				platform_type,
@@ -132,8 +132,8 @@
 			<if test="platformId != null">
 				#{platformId,jdbcType=INTEGER},
 			</if>
-			<if test="platfromName != null">
-				#{platfromName,jdbcType=VARCHAR},
+			<if test="platformName != null">
+				#{platformName,jdbcType=VARCHAR},
 			</if>
 			<if test="platformType != null">
 				#{platformType,jdbcType=VARCHAR},
@@ -158,8 +158,8 @@
 	<update id="updateByPrimaryKeySelective" parameterType="cn.sosopd.platform.entity.SosopdThirdPlatform">
 		update sosopd_third_platform
 		<set>
-			<if test="platfromName != null">
-				platfrom_name = #{platfromName,jdbcType=VARCHAR},
+			<if test="platformName != null">
+				platform_name = #{platformName,jdbcType=VARCHAR},
 			</if>
 			<if test="platformType != null">
 				platform_type = #{platformType,jdbcType=VARCHAR},
@@ -184,7 +184,7 @@
 	</update>
 	<update id="updateByPrimaryKey" parameterType="cn.sosopd.platform.entity.SosopdThirdPlatform">
 		update sosopd_third_platform
-		set platfrom_name = #{platfromName,jdbcType=VARCHAR},
+		set platform_name = #{platformName,jdbcType=VARCHAR},
 		platform_type = #{platformType,jdbcType=VARCHAR},
 		docking_status = #{dockingStatus,jdbcType=VARCHAR},
 		login_web_site = #{loginWebSite,jdbcType=VARCHAR},

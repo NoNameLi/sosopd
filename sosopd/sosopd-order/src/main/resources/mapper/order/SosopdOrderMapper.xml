@@ -26,7 +26,7 @@
   </resultMap>
 
   <resultMap id="JoinResultMap" type="cn.sosopd.order.entity.SosopdOrderExtend" extends = "BaseResultMap">
-    <result column="platfrom_name" property="platfromName" jdbcType="VARCHAR" />
+    <result column="platform_name" property="platformName" jdbcType="VARCHAR" />
     <result column="order_status_name" property="orderStatusName" jdbcType="VARCHAR" />
     <result column="cust_province_name" property="custProvinceName" jdbcType="VARCHAR" />
     <result column="cust_city_name" property="custCityName" jdbcType="VARCHAR" />
@@ -63,7 +63,7 @@
   <sql id="Join_Column_List" >
   	<include refid="Base_Column_List" /> ,
   	<!-- 平台部分-->
-	tp.platfrom_name	   				platfrom_name,
+	tp.platform_name	   				platform_name,
 	<!-- 地址部分-->
 	concat(pro.name, pro.suffix)		cust_province_name,
 	concat(city.name, city.suffix)		cust_city_name,

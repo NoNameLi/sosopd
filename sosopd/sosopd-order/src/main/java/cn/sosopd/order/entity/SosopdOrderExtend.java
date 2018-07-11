@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true) //
 public class SosopdOrderExtend extends SosopdOrder {
 
-    private String platfromName;
+    private String platformName;
     private String orderStatusName;
     private String custProvinceName;
     private String custCityName;

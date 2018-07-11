@@ -8,5 +8,7 @@ import lombok.EqualsAndHashCode;
 public class SosopdThirdPlatformAccountExtend extends SosopdThirdPlatformAccount {
 
     private String statusName;
+    
+    private String platformName;
 
 }

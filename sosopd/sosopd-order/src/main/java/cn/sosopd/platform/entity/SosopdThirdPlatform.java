@@ -12,7 +12,7 @@ public class SosopdThirdPlatform {
     /**
      * 平台名称
      */
-    private String platfromName;
+    private String platformName;
 
     /**
      * 平台分类

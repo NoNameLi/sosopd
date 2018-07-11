@@ -16,7 +16,7 @@
 	<div id="wrapper" v-cloak class ="padding-top-15px">
 		
 		<div class="col-xs-12 col-sm-12 col-md-12">
-			<span>已选中{{selectOrders.length}}张单，派给：</span>
+			<h4>已选中{{selectOrders.length}}张单，派给：</h4>
 		</div>
 		
 		<div class="col-xs-12 col-sm-12 col-md-12 cursor" >
@@ -25,7 +25,7 @@
 				
 					<div class="col-xs-2 col-sm-2 col-md-2 payment-card requisition-card " style="width: 140px" v-on:click="confirm(item.id)"  v-for= "item in userPlatformAccounts">
 						<div class="mc">
-							<div>{{item.account}}</div>
+							<div>{{item.platformName}}</div>
 						</div>
 					</div>
 					

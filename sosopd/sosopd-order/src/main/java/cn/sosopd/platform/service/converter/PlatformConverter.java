@@ -12,7 +12,7 @@ public class PlatformConverter {
         CommonParamDto data = new CommonParamDto();
         if (null != platform) {
             data.setId(String.valueOf(platform.getPlatformId()));
-            data.setText(platform.getPlatfromName());
+            data.setText(platform.getPlatformName());
         }
         return data;
     }

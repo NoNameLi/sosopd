@@ -29,6 +29,27 @@ var vm = new Vue({
 			});
 		},
 		confirm:function(platformAccountId){
+			console.log(platformAccountId);
+			
+			$.ajax({
+				url : contextPath + '/sosopd/thirdplatformAccount/getUserPlatformAccount.json',
+				type : 'POST',
+				
+				success : function(res) {
+					if(res.meta.success){
+						vm.userPlatformAccounts = res.data;
+					}else{
+						layer.msg(res.meta.message, {icon:5});
+					}
+				},
+				error : function(res) {
+					layer.msg("合作商初始化失败", {icon:5});
+				}
+			});
+			
+			
+			
+			layer.closeAll();
 		}
 	},
 	mounted: function(){

@@ -16,6 +16,7 @@
 	
 	<resultMap id="JoinResultMap" type="cn.sosopd.platform.entity.SosopdThirdPlatformAccountExtend" extends="BaseResultMap">
 		<result column="status_name" property="statusName" jdbcType="VARCHAR" />
+		<result column="platform_name" property="platformName" jdbcType="VARCHAR"/>
 	</resultMap>
 
 	<sql id="Base_Column_List">
@@ -32,14 +33,17 @@
 	
 	<sql id="Join_Column_List">
 		<include refid="Base_Column_List" />,
-		<!-- 数据字典部分部分 -->
-		sd.`value`				status_name
+		<!-- 数据字典部分数据 -->
+		sd.`value`				status_name,
+		<!-- 平台部分数据 -->
+		tp.platform_name 		platform_name
 	</sql>
 
 	<!-- 只查询工单表 -->
 	<sql id="Basic_join_From_List">
 		sosopd_third_platform_account t
 		left join sosopd_system_dictionary sd on sd.key = t.status
+		left join sosopd_third_platform tp on tp.platform_id=t.platform_id
 	</sql>
 
 	<select id="selectUserThirdPlarformAccount" resultMap="JoinResultMap">

@@ -30,7 +30,7 @@ import cn.sosopd.user.entity.SosopdUser;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/spring/applicationContext-all.xml" })
-public class ThirdPlatfromTest {
+public class ThirdPlatformTest {
 
     @Autowired
     private ThirdPlatformService thirdPlatformService;
