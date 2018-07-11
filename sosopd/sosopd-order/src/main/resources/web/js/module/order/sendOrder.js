@@ -29,27 +29,22 @@ var vm = new Vue({
 			});
 		},
 		confirm:function(platformAccountId){
-			console.log(platformAccountId);
-			
+			var vm = this;
 			$.ajax({
-				url : contextPath + '/sosopd/thirdplatformAccount/getUserPlatformAccount.json',
+				url : contextPath + '/sosopd/order/sendOrderToPlatform.json',
 				type : 'POST',
-				
+				data : {platformAccountId:platformAccountId,orderIds:vm.selectOrders},
 				success : function(res) {
 					if(res.meta.success){
-						vm.userPlatformAccounts = res.data;
+						layer.closeAll();
 					}else{
 						layer.msg(res.meta.message, {icon:5});
 					}
 				},
 				error : function(res) {
-					layer.msg("合作商初始化失败", {icon:5});
+					layer.msg(res.meta.message, {icon:5});
 				}
 			});
-			
-			
-			
-			layer.closeAll();
 		}
 	},
 	mounted: function(){
