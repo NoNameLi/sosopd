@@ -37,6 +37,7 @@ var vm = new Vue({
 				success : function(res) {
 					if(res.meta.success){
 						layer.closeAll();
+						parent.vm.refresh();
 					}else{
 						layer.msg(res.meta.message, {icon:5});
 					}
